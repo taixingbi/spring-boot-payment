@@ -1,102 +1,55 @@
 package com.example.demo.controller;
-import com.example.demo.dao.Payment;
+import com.example.demo.dao.payment.Module;
 
-import com.example.demo.repository.UserRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.example.demo.dao.payment.Payment;
+import com.example.demo.model.Pos_rents_orders;
+import com.example.demo.repository.PosRentsOrdersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.model.Checkout;
-import com.example.demo.model.Orders;
-import com.example.demo.model.Users;
-
-import com.google.gson.JsonObject;
-
-
-import com.example.demo.repository.OrdersRepository;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @RestController
 public class PaymentController {
 
-    private OrdersRepository ordersRepository;
+    @Autowired
+    private PosRentsOrdersRepository posRentsOrdersRepository;
 
-    public PaymentController(OrdersRepository ordersRepository) {
-        this.ordersRepository = ordersRepository;
-    }
-
-    @RequestMapping("/paypal/token")
+    @RequestMapping("/payment/token")
     public String get_paypal_access_token() {
-        Payment payment= new Payment();
+        Module payment= new Module();
         return  payment.papyal_access_token();
     }
 
-    @PostMapping("/test")
-    public String test(@RequestBody Checkout post) {
+    @RequestMapping(
+        value = "/payment",
+        method = RequestMethod.POST,
+        consumes = MediaType.APPLICATION_JSON_VALUE)
 
-
-        //System.out.println("post: "+post);
-
-        return "nice post";
-    }
-
-    @RequestMapping("/paypal")
-    public String checkout() {
-
+    @ResponseBody
+    public HttpStatus resquestFromFrontend(@RequestBody String resquestStr) throws Exception {
         Payment payment= new Payment();
+        Pos_rents_orders newRowPosRentOrders= payment.process(resquestStr);
+        posRentsOrdersRepository.save(newRowPosRentOrders);
 
-        String  access_token= payment.papyal_access_token();
-        JsonObject resJon=  payment.papyal_check_out(access_token);
-        Orders OrdersRow= payment.save2sql(resJon);
-        ordersRepository.save(OrdersRow);
-
-        return "pay succesully\n" + resJon;
+        return HttpStatus.OK;
     }
 
 
-    @RequestMapping("/test/sql")
-    public Orders save_sql() {
+    @RequestMapping("/test")
+    public String test() {
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-        Orders row = new Orders() ;
-        row.setOrder_id("ch_1A8cGRDBxoAxoozUZHjrbDdeaasdsdfsdf");
-        row.setAgent_email("dd@gmail.com");
-        row.setOrder_completed(1);
-        row.setPayment_type("credit_card");
+        String[] spliter= now.split(" ");
 
-        row.setTotal_price_before_tax(8.41);
-        row.setTotal_price_after_tax(8.47);
-        row.seTagent_price_after_tax(8.46);
-
-        row.setTour_type("public(2h)");
-        row.setDate("04/07/2019");
-        row.setTime("9am");
-        row.setCustomer_name("di");
-        row.setCustomer_lastname("hooker");
-        row.setCustomer_email("di@gmail.com");
-        row.setComment("this guy is lazy");
-        row.setbarcode("as4545sdfq324423sdf");
-
-        row.setAdult(1);
-        row.setChild(1);
-        row.setTotal_people(2);
-        row.setServed(0);
-
-        row.setCreated_at( LocalDateTime.now() );
-        row.setCompleted_at(  LocalDateTime.now() );
-        row.setServed_date(  LocalDateTime.now() );
-
-
-        ordersRepository.save(row);
-
-        return row;
+        return spliter[1];
     }
 
 }
-
 
 
 

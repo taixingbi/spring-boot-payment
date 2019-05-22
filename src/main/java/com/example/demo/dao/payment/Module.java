@@ -1,11 +1,10 @@
-package com.example.demo.dao;
+package com.example.demo.dao.payment;
 
-import com.example.demo.model.Orders;
-import com.example.demo.repository.OrdersRepository;
+import com.example.demo.model.Pos_rents_orders;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -15,14 +14,33 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import com.example.demo.model.Orders;
+public class Module {
 
-public class Payment {
+    public JsonObject parseJson( String resquestStr){
+        System.out.println(resquestStr);
+        JsonParser parser = new JsonParser();
+        JsonObject resquestJson = parser.parse(resquestStr).getAsJsonObject();
+        return resquestJson;
+    }
+
+    public JsonObject paypalJson( String resquestStr){
+        JsonObject resquestJson= parseJson(resquestStr);
+        JsonObject paypalJson= resquestJson.get("paypal").getAsJsonObject();
+
+        System.out.println("paypal: " + paypalJson);
+        return paypalJson;
+    }
+
+    public JsonObject pos_rents_ordersJson( String resquestStr){
+        JsonObject resquestJson= parseJson(resquestStr);
+        JsonObject pos_rents_ordersJson= resquestJson.get("pos_rents_orders").getAsJsonObject();
+
+        System.out.println("pos_rents_orders: " + pos_rents_ordersJson);
+        return pos_rents_ordersJson;
+    }
 
     public String papyal_access_token() {
 
@@ -84,36 +102,23 @@ public class Payment {
         return access_token;
     }
 
+    public JsonObject paypal_placement(String access_token, JsonObject paypalJson) {
 
-    public JsonObject papyal_check_out(String access_token) {
+        String number = paypalJson.get("number").getAsString();
+        String type = paypalJson.get("type").getAsString();
+        String expire_month = paypalJson.get("expire_month").getAsString();
+        String expire_year = paypalJson.get("expire_year").getAsString();
+        String cvv2 = paypalJson.get("cvv2").getAsString();
+        String first_name = paypalJson.get("first_name").getAsString();
+        String last_name = paypalJson.get("last_name").getAsString();
 
-        String line1= "111 First Street";
-        String  city="Saratoga";
-        String state= "CA";
-        String postal_code= "95070";
-        String country_code="US";
+        String payment_method = paypalJson.get("payment_method").getAsString();
 
-        String number="4417119669820331";
-        String type= "visa";
-        String expire_month= "11";
-        String expire_year= "2021";
-        String cvv2= "874";
-        String first_name= "mar";
-        String last_name= "killer";
-
-        String payment_method= "credit_card";
-
-        String subtotal= "8.41";
-        String tax= "0.03";
-        String shipping= "0.03";
-
-        String total= "8.47";
-        String  currency= "USD";
-
-
-        JsonObject resJson= null;
+        String total = paypalJson.get("total").getAsString();
+        String currency = "USD";
 
         //--------------------------check out-----------------------------------------
+        JsonObject recieptJson= null;
         try{
 
             URL url = new URL("https://api.sandbox.paypal.com/v1/payments/payment");
@@ -129,14 +134,6 @@ public class Payment {
             //conn.setRequestProperty("Authorization", "Bearer " + access_token);
             conn.setRequestProperty("Content-Type", "application/json");
 
-            //payer
-            JsonObject billing_address = new JsonObject();
-            billing_address.addProperty("line1", line1);
-            billing_address.addProperty("city", city);
-            billing_address.addProperty("state", state);
-            billing_address.addProperty("postal_code", postal_code);
-            billing_address.addProperty("country_code", country_code);
-
             JsonObject credit = new JsonObject();
             credit.addProperty("number", number);
             credit.addProperty("type", type);
@@ -145,7 +142,7 @@ public class Payment {
             credit.addProperty("cvv2", cvv2);
             credit.addProperty("first_name", first_name);
             credit.addProperty("last_name", last_name);
-            credit.add("billing_address", billing_address);
+            //credit.add("billing_address", billing_address);
 
             JsonObject credit_card = new JsonObject();
             credit_card.add("credit_card", credit);
@@ -158,15 +155,10 @@ public class Payment {
             payer.add("funding_instruments", funding_array);
 
             //transactions
-            JsonObject details = new JsonObject();
-            details.addProperty("subtotal", subtotal);
-            details.addProperty("tax", tax);
-            details.addProperty("shipping", shipping);
-
             JsonObject amount = new JsonObject();
             amount.addProperty("total", total);
             amount.addProperty("currency", currency);
-            amount.add("details", details);
+            //amount.add("details", details);
 
             JsonObject trans = new JsonObject();
             trans.add("amount", amount);
@@ -202,9 +194,9 @@ public class Payment {
             }
             System.out.println("payapl resposonse" + sb);
 
-            resJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
+            recieptJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
 
-            String resStr = resJson.toString().replaceAll("^\"|\"$", "");
+            String resStr = recieptJson.toString().replaceAll("^\"|\"$", "");
 
             reader.close();
 
@@ -215,100 +207,69 @@ public class Payment {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("json:" + resJson.get("id") );
+        //System.out.println("payment id:" + recieptJson.get("id") );
+        System.out.println("reciept " + recieptJson);
 
-
-        return resJson;
+        return recieptJson;
     }
 
+    public Pos_rents_orders pos_rents_orders(JsonObject pos_rents_ordersJson , JsonObject recieptJson) {
 
-    public Orders save2sql(JsonObject resJson) {
-        //default
-        String order_id= "ch_1A8cGRDBxoAxoozUZHjrbDdeaasdsdfasdadccccccc";
-        String agent_email= "dd@gmail.com";
-        int order_completed= 0;
-        String payment_type= "paypal";
+        Pos_rents_orders newRow = new Pos_rents_orders() ;
 
-        double total_price_before_tax= 8.41;
-        double total_price_after_tax= 8.47;
-        double tagent_price_after_tax= 8.46;
+        newRow.setOrder_id( recieptJson.get("id").getAsString() );
+        //newRow.setOrder_id( "PAY-4UJ945233A54211bbbbbbbbb" );
 
-        String tour_type= "public(2h)";
-        String date= "04/07/2019";
-        String time= "9am";
-        String customer_name= "di";
-        String customer_lastname= "hooker";
-        String customer_email= "di@gmail.com";
-        String comment= "this guy is lazy";
-        String setbarcode= "as4545sdfq324423sdf";
+        newRow.setCashier_email( "reservation@bikerent.nyc" );
 
-        int adult= 1;
-        int child= 1;
-        int total_people= 2;
-        int served= 0;
+        newRow.setTotal_price_before_tax( Double.valueOf( pos_rents_ordersJson.get("total_price_before_tax").getAsString() ) );
+        newRow.setTotal_price_after_tax( Double.valueOf( pos_rents_ordersJson.get("total_price_after_tax").getAsString() ) );
 
-        LocalDateTime created_at= LocalDateTime.now() ;
-        LocalDateTime completed_at=  LocalDateTime.now() ;
-        LocalDateTime served_date= LocalDateTime.now() ;
+        newRow.setCustomer_name(pos_rents_ordersJson.get("customer_name").getAsString());
+        newRow.setCustomer_lastname(pos_rents_ordersJson.get("customer_lastname").getAsString());
 
-        //set value
-        order_id= resJson.get("id").getAsString();
+        newRow.setCustomer_cc_name(pos_rents_ordersJson.get("customer_cc_name").getAsString());
+        newRow.setCustomer_cc_lastname(pos_rents_ordersJson.get("customer_cc_lastname").getAsString());
 
-        String create_time= resJson.get("create_time").getAsString();
+        newRow.setCustomer_email( pos_rents_ordersJson.get("customer_email").getAsString() );
+        newRow.setOrder_completed( 1 );
+        newRow.setPayment_type("paypal");
+        newRow.setReservation(1);
 
-        //LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        String[] spliter= now.split(" ");
+        newRow.setCreated_at( now );
+        newRow.setDate( spliter[0] );//date
+        newRow.setTime( spliter[1] );//time
+        newRow.setDuration( pos_rents_ordersJson.get("duration").getAsString());
 
-        System.out.println("create_time:" + create_time );
+        newRow.setAdult( Integer.valueOf( pos_rents_ordersJson.get("adult").getAsString() ) );
+        newRow.setChild( Integer.valueOf( pos_rents_ordersJson.get("child").getAsString() ) );
+        newRow.setTandem( Integer.valueOf( pos_rents_ordersJson.get("tandem").getAsString() ) );
+        newRow.setRoad( Integer.valueOf( pos_rents_ordersJson.get("road").getAsString() ) );
+        newRow.setMountain( Integer.valueOf( pos_rents_ordersJson.get("mountain").getAsString() ) );
+        newRow.setHand( Integer.valueOf( pos_rents_ordersJson.get("hand").getAsString() ) );
+        newRow.setElectric_bike( Integer.valueOf( pos_rents_ordersJson.get("electric_bike").getAsString() ) );
+        newRow.setElectric_hand( Integer.valueOf( pos_rents_ordersJson.get("electric_hand").getAsString() ) );
+        newRow.setElliptigo( Integer.valueOf( pos_rents_ordersJson.get("elliptigo").getAsString() ) );
+        newRow.setTricycle( Integer.valueOf( pos_rents_ordersJson.get("tricycle").getAsString() ) );
+        newRow.setCarbon_road( Integer.valueOf( pos_rents_ordersJson.get("carbon_road").getAsString() ) );
+        newRow.setTotal_bikes( Integer.valueOf( pos_rents_ordersJson.get("total_bikes").getAsString() ) );
+        newRow.setTrailer( Integer.valueOf( pos_rents_ordersJson.get("trailer").getAsString() ) );
+        newRow.setKid_trailer( Integer.valueOf( pos_rents_ordersJson.get("kid_trailer").getAsString() ) );
+        newRow.setBasket( Integer.valueOf( pos_rents_ordersJson.get("basket").getAsString() ) );
+        newRow.setSeat( Integer.valueOf( pos_rents_ordersJson.get("seat").getAsString() ) );
+        newRow.setLocks(0);//free to take for customer
 
+        newRow.setDropoff( Integer.valueOf( pos_rents_ordersJson.get("dropoff").getAsString() ) );
+        newRow.setInsurance( Integer.valueOf( pos_rents_ordersJson.get("insurance").getAsString() ) );
+        //newRow.setBarcode( "generated by backend");
+        newRow.setServed(1);
+        //newRow.setSequantial();
 
-        if( resJson.get("state").getAsString().equals("approved"))  order_completed= 1;
-
-        JsonObject payer= resJson.getAsJsonObject("payer");
-        payment_type= payer.get("payment_method").getAsString();
-
-
-        JsonArray funding_array = payer.getAsJsonObject().getAsJsonArray("funding_instruments");
-        JsonObject credit_card= funding_array.get(0).getAsJsonObject().getAsJsonObject("credit_card");
-
-        customer_name= credit_card.get("first_name").getAsString();
-        customer_lastname= credit_card.get("last_name").getAsString();
-
-        Orders row = new Orders() ;
-        row.setOrder_id(order_id);
-        row.setAgent_email(agent_email);
-        row.setOrder_completed(order_completed);
-        row.setPayment_type(payment_type);
-
-        row.setTotal_price_before_tax(total_price_before_tax);
-        row.setTotal_price_after_tax(total_price_after_tax);
-        row.seTagent_price_after_tax(tagent_price_after_tax);
-
-        row.setTour_type(tour_type);
-        row.setDate(date);
-        row.setTime(time);
-        row.setCustomer_name(customer_name);
-        row.setCustomer_lastname(customer_lastname);
-        row.setCustomer_email(customer_email);
-        row.setComment(comment);
-        row.setbarcode(setbarcode);
-
-        row.setAdult(adult);
-        row.setChild(child);
-        row.setTotal_people(total_people);
-        row.setServed(served);
-
-        row.setCreated_at( LocalDateTime.now() );
-        row.setCompleted_at(  LocalDateTime.now() );
-        row.setServed_date(  LocalDateTime.now() );
-
-
-        return row;
+        return newRow;
     }
-
 }
-
-
-
 
 
 
