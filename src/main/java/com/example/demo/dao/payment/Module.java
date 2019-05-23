@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -92,8 +94,9 @@ public class Module {
             System.out.println("Response message:" + conn.getResponseMessage());
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "camn not get access token ", e);
         }
 
         System.out.println("DAO access_token: " + "Bearer " + access_token);
@@ -102,7 +105,7 @@ public class Module {
         return access_token;
     }
 
-    public JsonObject paypal_placement(String access_token, JsonObject paypalJson) {
+    public String paypal_placement(String access_token, JsonObject paypalJson) {
 
         String number = paypalJson.get("number").getAsString();
         String type = paypalJson.get("type").getAsString();
@@ -118,7 +121,7 @@ public class Module {
         String currency = "USD";
 
         //--------------------------check out-----------------------------------------
-        JsonObject recieptJson= null;
+        String recieptStr= null;
         try{
 
             URL url = new URL("https://api.sandbox.paypal.com/v1/payments/payment");
@@ -192,11 +195,13 @@ public class Module {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            System.out.println("payapl resposonse" + sb);
+            System.out.println("payapl resposonse " + sb);
 
-            recieptJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
+            recieptStr= sb.toString();
+            //recieptJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
 
-            String resStr = recieptJson.toString().replaceAll("^\"|\"$", "");
+
+            //String resStr = recieptJson.toString().replaceAll("^\"|\"$", "");
 
             reader.close();
 
@@ -207,18 +212,24 @@ public class Module {
             String m = e.getMessage();
 
             System.out.println("error: " + m);
+            System.out.println("reciept: " + recieptStr);
+
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, m, e);
         }
 
         //System.out.println("payment id:" + recieptJson.get("id") );
-        System.out.println("reciept " + recieptJson);
+        System.out.println("reciept " + recieptStr);
 
-        return recieptJson;
+        return recieptStr;
     }
 
-    public Pos_rents_orders pos_rents_orders(JsonObject pos_rents_ordersJson , JsonObject recieptJson) {
+
+    public Pos_rents_orders pos_rents_orders(JsonObject pos_rents_ordersJson , String recieptStr) {
 
         Pos_rents_orders newRow = new Pos_rents_orders() ;
 
+        JsonObject recieptJson = new JsonParser().parse( recieptStr ).getAsJsonObject();
         newRow.setOrder_id( recieptJson.get("id").getAsString() );
         //newRow.setOrder_id( "PAY-4UJ945233A54211bbbbbbbbb" );
 

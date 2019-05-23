@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,11 +36,18 @@ public class PaymentController {
     public HttpStatus resquestFromFrontend(@RequestBody String resquestStr) throws Exception {
         Payment payment= new Payment();
         Pos_rents_orders newRowPosRentOrders= payment.process(resquestStr);
-        posRentsOrdersRepository.save(newRowPosRentOrders);
+
+        try {
+            posRentsOrdersRepository.save(newRowPosRentOrders);
+        }catch (Exception e) {
+            String m = e.getMessage();
+
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, m, e);
+        }
 
         return HttpStatus.OK;
     }
-
 
     @RequestMapping("/test")
     public String test() {

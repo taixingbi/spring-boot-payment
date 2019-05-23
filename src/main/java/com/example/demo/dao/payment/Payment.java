@@ -15,20 +15,19 @@ public class Payment {
 
         Module module = new Module();
 
-        //prarse request json data
-        JsonObject paypalJson = module.paypalJson(resquestStr);
-
         //get paypal access token
         String  access_token= module.papyal_access_token();
 
+        //prarse request json data
+        JsonObject paypalJson = module.paypalJson(resquestStr);
+
         //paypal preocess
-        JsonObject recieptJson=  module.paypal_placement(access_token, paypalJson);
+        String recieptStr=  module.paypal_placement(access_token, paypalJson);
         //JsonObject recieptJson= null;
 
         //save to database
         JsonObject pos_rents_ordersJson = module.pos_rents_ordersJson(resquestStr);
-        Pos_rents_orders newRowPosRentOrders= module.pos_rents_orders(pos_rents_ordersJson, recieptJson);
-
+        Pos_rents_orders newRowPosRentOrders= module.pos_rents_orders(pos_rents_ordersJson, recieptStr);
 
         return newRowPosRentOrders;
     }
