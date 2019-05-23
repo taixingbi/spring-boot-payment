@@ -1,19 +1,8 @@
 
-#build docker images
-docker build  -t taixingbi/docker-spring-boot-hello .
 
-#open link
-http://localhost:8080/
-
-#push in docker hub
-docker push taixingbi/docker-spring-boot-hello 
-
-#AWS
-sudo yum intall docker -y
-sudo service docker start
-sudo docker run taixingbi/docker-spring-boot-hello   -p 80:8080
-
-
+#-----------------------------run java in ubuntu-------------------
+mvn clean install
+ java -jar target/bike-rent.jar
 
 
 #-----------------------------docker ECS---------------------------
@@ -30,13 +19,25 @@ aws ecr get-login
 docker build -t seenusdockerrig .
 
 
-#-----------------------------run java-------------------
- java -jar target/bike-rent.jar
+
  
 #issue
   
 https://serverfault.com/questions/893615/how-to-pull-docker-image-on-ecr-using-cloudformation-template
 
+#--------------------------docker--------------------------
+#build docker images
+docker build  -t taixingbi/docker-spring-boot-hello .
 
+#open link
+http://localhost:8085/
+
+#push in docker hub
+docker push taixingbi/docker-spring-boot-hello 
+
+#AWS
+sudo yum intall docker -y
+sudo service docker start
+sudo docker run taixingbi/docker-spring-boot-hello   -p 80:8080
 
 

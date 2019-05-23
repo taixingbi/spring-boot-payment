@@ -204,7 +204,9 @@ public class Module {
             System.out.println("Response message:" + conn.getResponseMessage());
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            String m = e.getMessage();
+
+            System.out.println("error: " + m);
         }
 
         //System.out.println("payment id:" + recieptJson.get("id") );

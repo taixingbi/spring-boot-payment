@@ -25,6 +25,7 @@ public class PaymentController {
         return  payment.papyal_access_token();
     }
 
+    @CrossOrigin
     @RequestMapping(
         value = "/payment",
         method = RequestMethod.POST,
