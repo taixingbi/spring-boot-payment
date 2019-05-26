@@ -19,6 +19,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.ValidationException;
+
 public class Module {
 
     public JsonObject parseJson( String resquestStr){
@@ -105,7 +107,63 @@ public class Module {
         return access_token;
     }
 
+    public void payaplValidation(JsonObject paypalJson){
+
+        String type= paypalJson.get("type").getAsString();
+        if(     type.equals("visa") ||
+                type.equals("americanexpress") ||
+                type.equals("discover") ||
+                type.equals("mastercard")
+
+        ){
+            System.out.println("payapl type is good ");
+        }
+        else{
+            throw new ValidationException( "Validation Error: payapl <type> should be one of  <visa> <mastercard> <americanexpress> <discover>" );
+        }
+
+        String expireMonth= paypalJson.get("expire_month").getAsString();
+        if(     expireMonth.equals("01") ||
+                expireMonth.equals("02") ||
+                expireMonth.equals("03") ||
+                expireMonth.equals("04") ||
+                expireMonth.equals("05") ||
+                expireMonth.equals("06") ||
+                expireMonth.equals("07") ||
+                expireMonth.equals("08") ||
+                expireMonth.equals("09") ||
+                expireMonth.equals("10") ||
+                expireMonth.equals("11") ||
+                expireMonth.equals("12")
+        ){
+            System.out.println("payapl expire_month is good ");
+        }
+        else{
+            throw new ValidationException( "Validation Error: payapl <expire_month> should be <01> <02>.. <12>" );
+        }
+
+
+        String expireYear= paypalJson.get("expire_year").getAsString();
+        if(    Integer.valueOf(expireYear) >= 2019){
+            System.out.println("payapl expire_year is good ");
+        }
+        else{
+            throw new ValidationException( "Validation Error: payapl <expire_month> should not be less current year" );
+        }
+
+        String total= paypalJson.get("total").getAsString();
+        String regex = "[0-9.]+";
+        if( total.matches(regex) ){
+            System.out.println("payapl total is good ");
+        }
+        else{
+            throw new ValidationException( "Validation Error: payapl <total> is wrong. No letters, No space. it should be like eg <7> <7.0> " );
+        }
+    }
+
+
     public String paypal_placement(String access_token, JsonObject paypalJson) {
+        payaplValidation(paypalJson);
 
         String number = paypalJson.get("number").getAsString();
         String type = paypalJson.get("type").getAsString();
@@ -122,7 +180,7 @@ public class Module {
 
         //--------------------------check out-----------------------------------------
         String recieptStr= null;
-        try{
+        try {
 
             URL url = new URL("https://api.sandbox.paypal.com/v1/payments/payment");
 
@@ -131,9 +189,9 @@ public class Module {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-            String t= "A21AAEjehr1nLau0IYzqMFW_B2Zi-pWRS6397uuhSfqXCYm2R5NNz7DYnR02TzN60CmSno52Eh-odd_9IyWZHd4RqbQUD-1ag";
+            String t = "A21AAEjehr1nLau0IYzqMFW_B2Zi-pWRS6397uuhSfqXCYm2R5NNz7DYnR02TzN60CmSno52Eh-odd_9IyWZHd4RqbQUD-1ag";
             //t= access_token;
-            conn.setRequestProperty("Authorization", "Bearer "+ access_token);
+            conn.setRequestProperty("Authorization", "Bearer " + access_token);
             //conn.setRequestProperty("Authorization", "Bearer " + access_token);
             conn.setRequestProperty("Content-Type", "application/json");
 
@@ -151,7 +209,7 @@ public class Module {
             credit_card.add("credit_card", credit);
 
             JsonArray funding_array = new JsonArray();
-            funding_array.add( credit_card );
+            funding_array.add(credit_card);
 
             JsonObject payer = new JsonObject();
             payer.addProperty("payment_method", payment_method);
@@ -168,7 +226,7 @@ public class Module {
             trans.addProperty("description", "This is the payment transaction description.");
 
             JsonArray trans_array = new JsonArray();
-            trans_array.add( trans );
+            trans_array.add(trans);
 
             //integrate
             JsonObject payInfo = new JsonObject();
@@ -176,12 +234,12 @@ public class Module {
             payInfo.add("payer", payer);
             payInfo.add("transactions", trans_array);
 
-            System.out.println("request json for payapl:" + payInfo +"\n");
+            System.out.println("request json for payapl:" + payInfo + "\n");
 
             DataOutputStream output = new DataOutputStream(conn.getOutputStream());
 
             //output.writeBytes( cardJson.toString());
-            output.writeBytes( payInfo.toString());
+            output.writeBytes(payInfo.toString());
 
             //output.writeBytes(jsonData);
             output.close();
@@ -197,7 +255,7 @@ public class Module {
             }
             System.out.println("payapl resposonse " + sb);
 
-            recieptStr= sb.toString();
+            recieptStr = sb.toString();
             //recieptJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
 
 
@@ -218,8 +276,13 @@ public class Module {
                     HttpStatus.BAD_REQUEST, m, e);
         }
 
+
+
+
+        JsonObject recieptJson = new JsonParser().parse( recieptStr ).getAsJsonObject();
+        System.out.println("recieptJson " + recieptJson);
+
         //System.out.println("payment id:" + recieptJson.get("id") );
-        System.out.println("reciept " + recieptStr);
 
         return recieptStr;
     }
