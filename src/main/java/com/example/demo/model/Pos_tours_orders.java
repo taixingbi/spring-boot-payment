@@ -98,7 +98,7 @@ public class Pos_tours_orders extends Pos_orders {
         return kid_trailer;
     }
 
-    public void setkid_trailer(int kid_trailer) {
+    public void setKid_trailer(int kid_trailer) {
         this.kid_trailer = kid_trailer;
     }
 

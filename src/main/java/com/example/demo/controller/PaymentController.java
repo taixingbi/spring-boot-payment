@@ -3,24 +3,15 @@ import com.example.demo.dao.payment.ErrorHandling;
 import com.example.demo.dao.payment.Module;
 
 import com.example.demo.dao.payment.Payment;
-import com.example.demo.model.Pos_rents_orders;
 import com.example.demo.repository.PosRentsOrdersRepository;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.example.demo.repository.PosToursOrdersRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.ValidationException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,6 +27,9 @@ public class PaymentController {
 
     @Autowired
     private PosRentsOrdersRepository posRentsOrdersRepository;
+
+    @Autowired
+    private PosToursOrdersRepository posToursOrdersRepository;
 
     @RequestMapping("/payment/token")
     public String get_paypal_access_token() {
@@ -71,9 +65,11 @@ public class PaymentController {
             if(check_out_type.equals("pos_rents_orders"))
                 posRentsOrdersRepository.save( payment.checkout_pos_rents_orders( resquestStr, check_out_type, recieptStr) );
 
-            if(resquestStr.equals("pos_tours_orders")){
-
+            if(check_out_type.equals("pos_tours_orders")){
+                posToursOrdersRepository.save( payment.checkout_pos_tours_orders( resquestStr, check_out_type, recieptStr) );
             }
+
+            logger.warn( "\nplacement is sccessful" );
 
         }catch (Exception e) {
             String m = e.getMessage();

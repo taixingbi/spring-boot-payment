@@ -146,6 +146,7 @@ public class ErrorHandling {
 
         payaplValidation(paypal);
 
+
         if(  check_out_type.equals("pos_rents_orders") ){
             JsonObject pos_rents_orders= jsonObjGetKeyAsObj(resquestJson, "pos_rents_orders");
             jsonObjGetKeyAsString(pos_rents_orders, "total_price_before_tax");
@@ -156,13 +157,50 @@ public class ErrorHandling {
             jsonObjGetKeyAsString(pos_rents_orders, "customer_cc_lastname");
             jsonObjGetKeyAsString(pos_rents_orders, "customer_email");
             jsonObjGetKeyAsString(pos_rents_orders, "duration");
+
+            jsonObjGetKeyAsString(pos_rents_orders, "adult");
+            jsonObjGetKeyAsString(pos_rents_orders, "child");
+            jsonObjGetKeyAsString(pos_rents_orders, "tandem");
+            jsonObjGetKeyAsString(pos_rents_orders, "road");
+            jsonObjGetKeyAsString(pos_rents_orders, "mountain");
+            jsonObjGetKeyAsString(pos_rents_orders, "hand");
+            jsonObjGetKeyAsString(pos_rents_orders, "electric_bike");
+            jsonObjGetKeyAsString(pos_rents_orders, "electric_hand");
+            jsonObjGetKeyAsString(pos_rents_orders, "elliptigo");
+            jsonObjGetKeyAsString(pos_rents_orders, "tricycle");
+            jsonObjGetKeyAsString(pos_rents_orders, "carbon_road");
+            jsonObjGetKeyAsString(pos_rents_orders, "trailer");
+            jsonObjGetKeyAsString(pos_rents_orders, "kid_trailer");
+            jsonObjGetKeyAsString(pos_rents_orders, "basket");
+            jsonObjGetKeyAsString(pos_rents_orders, "seat");
+
             jsonObjGetKeyAsString(pos_rents_orders, "dropoff");
             jsonObjGetKeyAsString(pos_rents_orders, "insurance");
         }
 
         if(  check_out_type.equals("pos_tours_orders") ){
-            jsonObjGetKeyAsObj(resquestJson, "pos_tours_orders");
+            JsonObject pos_tours_orders= jsonObjGetKeyAsObj(resquestJson, "pos_tours_orders");
+            jsonObjGetKeyAsString(pos_tours_orders, "total_price_before_tax");
+            jsonObjGetKeyAsString(pos_tours_orders, "total_price_after_tax");
+            jsonObjGetKeyAsString(pos_tours_orders, "customer_name");
+            jsonObjGetKeyAsString(pos_tours_orders, "customer_lastname");
+            jsonObjGetKeyAsString(pos_tours_orders, "customer_cc_name");
+            jsonObjGetKeyAsString(pos_tours_orders, "customer_cc_lastname");
+            jsonObjGetKeyAsString(pos_tours_orders, "customer_email");
 
+            jsonObjGetKeyAsString(pos_tours_orders, "tour_type");
+            jsonObjGetKeyAsString(pos_tours_orders, "tour_place");
+            jsonObjGetKeyAsString(pos_tours_orders, "adult");
+            jsonObjGetKeyAsString(pos_tours_orders, "child");
+            jsonObjGetKeyAsString(pos_tours_orders, "walking");
+            jsonObjGetKeyAsString(pos_tours_orders, "pedicab");
+            jsonObjGetKeyAsString(pos_tours_orders, "total_people");
+            jsonObjGetKeyAsString(pos_tours_orders, "trailer");
+            jsonObjGetKeyAsString(pos_tours_orders, "kid_trailer");
+            jsonObjGetKeyAsString(pos_tours_orders, "basket");
+            jsonObjGetKeyAsString(pos_tours_orders, "seat");
+
+            jsonObjGetKeyAsString(pos_tours_orders, "insurance");
         }
 
         return ;

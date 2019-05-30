@@ -1,19 +1,19 @@
 package com.example.demo.dao.payment;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.example.demo.dao.payment.ErrorHandling;
 import com.example.demo.model.Pos_rents_orders;
+import com.example.demo.model.Pos_tours_orders;
+
 import com.example.demo.repository.PosRentsOrdersRepository;
+import com.example.demo.repository.PosToursOrdersRepository;
+
 import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class Payment {
     private static final Logger logger = LogManager.getLogger(Module.class);
-
-    @Autowired
-    private PosRentsOrdersRepository posRentsOrdersRepository;
 
     public String payal_api(String resquestStr, String check_out_type) {
         logger.info("\n\n-----------------------------------------------payal_api-----------------------------------------------" );
@@ -26,14 +26,26 @@ public class Payment {
     }
 
     public Pos_rents_orders checkout_pos_rents_orders(String resquestStr, String check_out_type, String recieptStr) {
-        logger.info("\n\n-----------------------------------------------pos_rents_orders----------------------------------------------->" );
+        logger.info("\n\n-----------------------------------------------save to table pos_rents_orders----------------------------------------------->" );
 
         Module module = new Module();
 
         JsonObject pos_rents_ordersJson = module.pos_rents_ordersJson(resquestStr);
         Pos_rents_orders newRowPosRentOrders= module.pos_rents_orders(pos_rents_ordersJson, recieptStr);
+        logger.info( ReflectionToStringBuilder.toString(newRowPosRentOrders) );
 
         return newRowPosRentOrders;
+    }
+
+    public Pos_tours_orders checkout_pos_tours_orders(String resquestStr, String check_out_type, String recieptStr) {
+        logger.info("\n\n-----------------------------------------------save to table  pos_tours_orders----------------------------------------------->" );
+        Module module = new Module();
+
+        JsonObject pos_tours_ordersJson = module.pos_tours_ordersJson(resquestStr);
+        Pos_tours_orders newRowPosToursOrders=  module.pos_tours_orders(pos_tours_ordersJson, recieptStr);
+        logger.info( ReflectionToStringBuilder.toString(newRowPosToursOrders) );
+
+        return newRowPosToursOrders;
     }
 }
 
