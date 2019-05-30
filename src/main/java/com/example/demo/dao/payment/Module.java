@@ -1,12 +1,15 @@
 package com.example.demo.dao.payment;
 
 import com.example.demo.model.Pos_rents_orders;
+import com.example.demo.dao.payment.ErrorHandling;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.el.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,31 +22,22 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.ValidationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Module {
+    private static final Logger logger = LogManager.getLogger(Module.class);
 
-    public JsonObject parseJson( String resquestStr){
-        System.out.println(resquestStr);
-        JsonParser parser = new JsonParser();
-        JsonObject resquestJson = parser.parse(resquestStr).getAsJsonObject();
-        return resquestJson;
-    }
-
-    public JsonObject paypalJson( String resquestStr){
-        JsonObject resquestJson= parseJson(resquestStr);
-        JsonObject paypalJson= resquestJson.get("paypal").getAsJsonObject();
-
-        System.out.println("paypal: " + paypalJson);
-        return paypalJson;
+    public JsonObject paypalJson( String resquestStr) {
+        JsonObject resquestJson= new JsonParser().parse(resquestStr).getAsJsonObject();;
+        //return jsonObjGetKeyAsObj(resquestJson, "paypal");
+        return resquestJson.get("paypal").getAsJsonObject();
     }
 
     public JsonObject pos_rents_ordersJson( String resquestStr){
-        JsonObject resquestJson= parseJson(resquestStr);
-        JsonObject pos_rents_ordersJson= resquestJson.get("pos_rents_orders").getAsJsonObject();
-
-        System.out.println("pos_rents_orders: " + pos_rents_ordersJson);
-        return pos_rents_ordersJson;
+        JsonObject resquestJson= new JsonParser().parse(resquestStr).getAsJsonObject();;
+        //return jsonObjGetKeyAsObj(resquestJson, "pos_rents_orders");
+        return resquestJson.get("pos_rents_orders").getAsJsonObject();
     }
 
     public String papyal_access_token() {
@@ -97,73 +91,18 @@ public class Module {
 
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error( "can not get access token ", e);
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "camn not get access token ", e);
+                    HttpStatus.BAD_REQUEST, "can not get access token ", e);
         }
 
-        System.out.println("DAO access_token: " + "Bearer " + access_token);
-
+        logger.info("DAO access_token: " + "Bearer " + access_token);
 
         return access_token;
     }
 
-    public void payaplValidation(JsonObject paypalJson){
-
-        String type= paypalJson.get("type").getAsString();
-        if(     type.equals("visa") ||
-                type.equals("americanexpress") ||
-                type.equals("discover") ||
-                type.equals("mastercard")
-
-        ){
-            System.out.println("payapl type is good ");
-        }
-        else{
-            throw new ValidationException( "Validation Error: payapl <type> should be one of  <visa> <mastercard> <americanexpress> <discover>" );
-        }
-
-        String expireMonth= paypalJson.get("expire_month").getAsString();
-        if(     expireMonth.equals("01") ||
-                expireMonth.equals("02") ||
-                expireMonth.equals("03") ||
-                expireMonth.equals("04") ||
-                expireMonth.equals("05") ||
-                expireMonth.equals("06") ||
-                expireMonth.equals("07") ||
-                expireMonth.equals("08") ||
-                expireMonth.equals("09") ||
-                expireMonth.equals("10") ||
-                expireMonth.equals("11") ||
-                expireMonth.equals("12")
-        ){
-            System.out.println("payapl expire_month is good ");
-        }
-        else{
-            throw new ValidationException( "Validation Error: payapl <expire_month> should be <01> <02>.. <12>" );
-        }
-
-
-        String expireYear= paypalJson.get("expire_year").getAsString();
-        if(    Integer.valueOf(expireYear) >= 2019){
-            System.out.println("payapl expire_year is good ");
-        }
-        else{
-            throw new ValidationException( "Validation Error: payapl <expire_month> should not be less current year" );
-        }
-
-        String total= paypalJson.get("total").getAsString();
-        String regex = "[0-9.]+";
-        if( total.matches(regex) ){
-            System.out.println("payapl total is good ");
-        }
-        else{
-            throw new ValidationException( "Validation Error: payapl <total> is wrong. No letters, No space. it should be like eg <7> <7.0> " );
-        }
-    }
-
 
     public String paypal_placement(String access_token, JsonObject paypalJson) {
-        payaplValidation(paypalJson);
 
         String number = paypalJson.get("number").getAsString();
         String type = paypalJson.get("type").getAsString();
@@ -234,7 +173,7 @@ public class Module {
             payInfo.add("payer", payer);
             payInfo.add("transactions", trans_array);
 
-            System.out.println("request json for payapl:" + payInfo + "\n");
+            //System.out.println("request json for payapl:" + payInfo + "\n");
 
             DataOutputStream output = new DataOutputStream(conn.getOutputStream());
 
@@ -253,7 +192,7 @@ public class Module {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            System.out.println("payapl resposonse " + sb);
+            logger.info("payapl resposonse " + sb);
 
             recieptStr = sb.toString();
             //recieptJson = new JsonParser().parse( sb.toString() ).getAsJsonObject();
@@ -269,18 +208,16 @@ public class Module {
         } catch (Exception e) {
             String m = e.getMessage();
 
-            System.out.println("error: " + m);
-            System.out.println("reciept: " + recieptStr);
+            logger.error("error: " + m);
+            logger.error("reciept: " + recieptStr);
 
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, m, e);
         }
 
 
-
-
         JsonObject recieptJson = new JsonParser().parse( recieptStr ).getAsJsonObject();
-        System.out.println("recieptJson " + recieptJson);
+        //logger.info("recieptJson " + recieptJson);
 
         //System.out.println("payment id:" + recieptJson.get("id") );
 
@@ -293,55 +230,63 @@ public class Module {
         Pos_rents_orders newRow = new Pos_rents_orders() ;
 
         JsonObject recieptJson = new JsonParser().parse( recieptStr ).getAsJsonObject();
-        newRow.setOrder_id( recieptJson.get("id").getAsString() );
-        //newRow.setOrder_id( "PAY-4UJ945233A54211bbbbbbbbb" );
 
-        newRow.setCashier_email( "reservation@bikerent.nyc" );
+        try {
+            newRow.setOrder_id(recieptJson.get("id").getAsString());
+            //newRow.setOrder_id( "PAY-4UJ945233A54211bbbbbbbbb" );
 
-        newRow.setTotal_price_before_tax( Double.valueOf( pos_rents_ordersJson.get("total_price_before_tax").getAsString() ) );
-        newRow.setTotal_price_after_tax( Double.valueOf( pos_rents_ordersJson.get("total_price_after_tax").getAsString() ) );
+            newRow.setCashier_email("reservation@bikerent.nyc");
 
-        newRow.setCustomer_name(pos_rents_ordersJson.get("customer_name").getAsString());
-        newRow.setCustomer_lastname(pos_rents_ordersJson.get("customer_lastname").getAsString());
+            newRow.setTotal_price_before_tax(Double.valueOf(pos_rents_ordersJson.get("total_price_before_tax").getAsString()));
+            newRow.setTotal_price_after_tax(Double.valueOf(pos_rents_ordersJson.get("total_price_after_tax").getAsString()));
 
-        newRow.setCustomer_cc_name(pos_rents_ordersJson.get("customer_cc_name").getAsString());
-        newRow.setCustomer_cc_lastname(pos_rents_ordersJson.get("customer_cc_lastname").getAsString());
+            newRow.setCustomer_name(pos_rents_ordersJson.get("customer_name").getAsString());
+            newRow.setCustomer_lastname(pos_rents_ordersJson.get("customer_lastname").getAsString());
 
-        newRow.setCustomer_email( pos_rents_ordersJson.get("customer_email").getAsString() );
-        newRow.setOrder_completed( 1 );
-        newRow.setPayment_type("paypal");
-        newRow.setReservation(1);
+            newRow.setCustomer_cc_name(pos_rents_ordersJson.get("customer_cc_name").getAsString());
+            newRow.setCustomer_cc_lastname(pos_rents_ordersJson.get("customer_cc_lastname").getAsString());
 
-        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        String[] spliter= now.split(" ");
-        newRow.setCreated_at( now );
-        newRow.setDate( spliter[0] );//date
-        newRow.setTime( spliter[1] );//time
-        newRow.setDuration( pos_rents_ordersJson.get("duration").getAsString());
+            newRow.setCustomer_email(pos_rents_ordersJson.get("customer_email").getAsString());
+            newRow.setOrder_completed(1);
+            newRow.setPayment_type("paypal");
+            newRow.setReservation(1);
 
-        newRow.setAdult( Integer.valueOf( pos_rents_ordersJson.get("adult").getAsString() ) );
-        newRow.setChild( Integer.valueOf( pos_rents_ordersJson.get("child").getAsString() ) );
-        newRow.setTandem( Integer.valueOf( pos_rents_ordersJson.get("tandem").getAsString() ) );
-        newRow.setRoad( Integer.valueOf( pos_rents_ordersJson.get("road").getAsString() ) );
-        newRow.setMountain( Integer.valueOf( pos_rents_ordersJson.get("mountain").getAsString() ) );
-        newRow.setHand( Integer.valueOf( pos_rents_ordersJson.get("hand").getAsString() ) );
-        newRow.setElectric_bike( Integer.valueOf( pos_rents_ordersJson.get("electric_bike").getAsString() ) );
-        newRow.setElectric_hand( Integer.valueOf( pos_rents_ordersJson.get("electric_hand").getAsString() ) );
-        newRow.setElliptigo( Integer.valueOf( pos_rents_ordersJson.get("elliptigo").getAsString() ) );
-        newRow.setTricycle( Integer.valueOf( pos_rents_ordersJson.get("tricycle").getAsString() ) );
-        newRow.setCarbon_road( Integer.valueOf( pos_rents_ordersJson.get("carbon_road").getAsString() ) );
-        newRow.setTotal_bikes( Integer.valueOf( pos_rents_ordersJson.get("total_bikes").getAsString() ) );
-        newRow.setTrailer( Integer.valueOf( pos_rents_ordersJson.get("trailer").getAsString() ) );
-        newRow.setKid_trailer( Integer.valueOf( pos_rents_ordersJson.get("kid_trailer").getAsString() ) );
-        newRow.setBasket( Integer.valueOf( pos_rents_ordersJson.get("basket").getAsString() ) );
-        newRow.setSeat( Integer.valueOf( pos_rents_ordersJson.get("seat").getAsString() ) );
-        newRow.setLocks(0);//free to take for customer
+            String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            String[] spliter = now.split(" ");
+            newRow.setCreated_at(now);
+            newRow.setDate(spliter[0]);//date
+            newRow.setTime(spliter[1]);//time
+            newRow.setDuration(pos_rents_ordersJson.get("duration").getAsString());
 
-        newRow.setDropoff( Integer.valueOf( pos_rents_ordersJson.get("dropoff").getAsString() ) );
-        newRow.setInsurance( Integer.valueOf( pos_rents_ordersJson.get("insurance").getAsString() ) );
-        //newRow.setBarcode( "generated by backend");
-        newRow.setServed(1);
-        //newRow.setSequantial();
+            newRow.setAdult(Integer.valueOf(pos_rents_ordersJson.get("adult").getAsString()));
+            newRow.setChild(Integer.valueOf(pos_rents_ordersJson.get("child").getAsString()));
+            newRow.setTandem(Integer.valueOf(pos_rents_ordersJson.get("tandem").getAsString()));
+            newRow.setRoad(Integer.valueOf(pos_rents_ordersJson.get("road").getAsString()));
+            newRow.setMountain(Integer.valueOf(pos_rents_ordersJson.get("mountain").getAsString()));
+            newRow.setHand(Integer.valueOf(pos_rents_ordersJson.get("hand").getAsString()));
+            newRow.setElectric_bike(Integer.valueOf(pos_rents_ordersJson.get("electric_bike").getAsString()));
+            newRow.setElectric_hand(Integer.valueOf(pos_rents_ordersJson.get("electric_hand").getAsString()));
+            newRow.setElliptigo(Integer.valueOf(pos_rents_ordersJson.get("elliptigo").getAsString()));
+            newRow.setTricycle(Integer.valueOf(pos_rents_ordersJson.get("tricycle").getAsString()));
+            newRow.setCarbon_road(Integer.valueOf(pos_rents_ordersJson.get("carbon_road").getAsString()));
+            newRow.setTotal_bikes(Integer.valueOf(pos_rents_ordersJson.get("total_bikes").getAsString()));
+            newRow.setTrailer(Integer.valueOf(pos_rents_ordersJson.get("trailer").getAsString()));
+            newRow.setKid_trailer(Integer.valueOf(pos_rents_ordersJson.get("kid_trailer").getAsString()));
+            newRow.setBasket(Integer.valueOf(pos_rents_ordersJson.get("basket").getAsString()));
+            newRow.setSeat(Integer.valueOf(pos_rents_ordersJson.get("seat").getAsString()));
+            newRow.setLocks(0);//free to take for customer
+
+            newRow.setDropoff(Integer.valueOf(pos_rents_ordersJson.get("dropoff").getAsString()));
+            newRow.setInsurance(Integer.valueOf(pos_rents_ordersJson.get("insurance").getAsString()));
+            //newRow.setBarcode( "generated by backend");
+            newRow.setServed(1);
+            //newRow.setSequantial();
+        }catch (Exception e) {
+            logger.error( "save database pos_rents_orders " + e.getMessage() );
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "parse json <pos_rents_orders> error " + e.getMessage(), e);
+        }
+
+        logger.info( "pos_rents_orders new rows: " + newRow );
 
         return newRow;
     }
