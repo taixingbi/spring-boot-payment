@@ -16636,3 +16636,15 @@ Database: maysql
 2019-05-30T14:23:44.086-0400 INFO com.example.demo.model.Pos_rents_orders@6fbc9842[duration=2 hours,adult=1,child=2,tandem=3,road=4,mountain=5,hand=6,electric_bike=7,electric_hand=8,elliptigo=9,tricycle=10,carbon_road=11,total_bikes=12,trailer=13,kid_trailer=14,basket=15,seat=16,locks=0,dropoff=1,id=0,order_id=PAY-6WP394715F022200ELTYB7JQ,cashier_email=reservation@bikerent.nyc,total_price_before_tax=8.0,total_price_after_tax=7.0,customer_name=customer_firstName,customer_lastname=customer_lastName,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-05-30 14:23:44,date=2019-05-30,time=14:23:44,insurance=1,barcode=<null>,served=1,sequantial=<null>]
 2019-05-30T14:23:44.193-0400 WARN 
 placement is sccessful
+2019-06-11T13:28:30.770-0400 INFO Starting DemoApplicationTests on taixings-mbp.lan with PID 25941 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-11T13:28:30.773-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-11T13:28:30.774-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-11T13:28:44.982-0400 INFO Started DemoApplicationTests in 14.625 seconds (JVM running for 16.917)
+2019-06-12T16:17:57.513-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 32272 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-12T16:17:57.519-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-12T16:17:57.520-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-12T16:18:11.806-0400 INFO Started DemoApplication in 15.367 seconds (JVM running for 17.619)
+2019-06-12T16:20:51.002-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 32282 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-12T16:20:51.003-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-12T16:20:51.005-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-12T16:21:00.672-0400 INFO Started DemoApplication in 10.24 seconds (JVM running for 11.85)

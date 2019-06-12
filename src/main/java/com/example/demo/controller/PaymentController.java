@@ -81,22 +81,19 @@ public class PaymentController {
         return HttpStatus.OK;
     }
 
-    @RequestMapping("/test/{x}")
-    public String test(  @PathVariable("x") String check_out_type ) {
-        logger.info(check_out_type);
-
-//        logger.debug("Debugging log");
-//        logger.info("Info log");
-//        logger.warn("Hey, This is a warning!");
-//        logger.error("Oops! We have an Error. OK");
-//        logger.fatal("Damn! Fatal error. Please fix me.");
+    @RequestMapping("/test")
+    public String test( ) {
 
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return now.split(" ")[1];
     }
 }
 
-
+//        logger.debug("Debugging log");
+//        logger.info("Info log");
+//        logger.warn("Hey, This is a warning!");
+//        logger.error("Oops! We have an Error. OK");
+//        logger.fatal("Damn! Fatal error. Please fix me.");
 
 
 
