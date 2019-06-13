@@ -30,19 +30,19 @@ https://serverfault.com/questions/893615/how-to-pull-docker-image-on-ecr-using-c
 docker build  -t taixingbi/docker-spring-boot-hello .
 
 ## open link
-http://localhost:8085/
+http://localhost:8085/  
 
-## push in docker hub
+## push in docker hub  
 docker push taixingbi/docker-spring-boot-hello 
 
 ## AWS
-sudo yum intall docker -y
+sudo yum intall docker -y  
 sudo service docker start
 sudo docker run taixingbi/docker-spring-boot-hello   -p 80:8080
 
 
-#------------------issue-------------
-#port already used
+## ------------------issue-------------
+# port already used  
 sudo lsof -i tcp:8085
 kill -9 PID
 

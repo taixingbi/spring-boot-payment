@@ -16648,3 +16648,7 @@ placement is sccessful
 2019-06-12T16:20:51.003-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
 2019-06-12T16:20:51.005-0400 INFO No active profile set, falling back to default profiles: default
 2019-06-12T16:21:00.672-0400 INFO Started DemoApplication in 10.24 seconds (JVM running for 11.85)
+2019-06-12T16:33:37.532-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 32353 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-12T16:33:37.534-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-12T16:33:37.535-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-12T16:33:49.048-0400 INFO Started DemoApplication in 12.225 seconds (JVM running for 13.999)
