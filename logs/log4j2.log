@@ -16652,3 +16652,149 @@ placement is sccessful
 2019-06-12T16:33:37.534-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
 2019-06-12T16:33:37.535-0400 INFO No active profile set, falling back to default profiles: default
 2019-06-12T16:33:49.048-0400 INFO Started DemoApplication in 12.225 seconds (JVM running for 13.999)
+2019-06-17T14:23:51.462-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40064 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:23:51.463-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:23:51.464-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:24:06.391-0400 INFO Started DemoApplication in 15.683 seconds (JVM running for 18.462)
+2019-06-17T14:29:09.610-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40119 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:29:09.611-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:29:09.611-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:29:20.860-0400 INFO Started DemoApplication in 12.266 seconds (JVM running for 14.123)
+2019-06-17T14:37:22.948-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40255 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:37:22.949-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:37:22.950-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:37:38.309-0400 INFO Started DemoApplication in 15.921 seconds (JVM running for 17.538)
+2019-06-17T14:38:12.383-0400 INFO DAO access_token: Bearer A21AAFaLHWhiUt9zhRGG6jrI2kKipSgGn_N9A3MiAbZL3nnp4zGG7chx9DEs-dyMBTKgd_ut4gTAPpYNUnw7kaVUS1BehYEuQ
+2019-06-17T14:42:20.998-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40307 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:42:21.008-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:42:21.010-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:42:37.406-0400 INFO Started DemoApplication in 17.092 seconds (JVM running for 19.042)
+2019-06-17T14:42:39.686-0400 INFO DAO access_token: Bearer A21AAFaLHWhiUt9zhRGG6jrI2kKipSgGn_N9A3MiAbZL3nnp4zGG7chx9DEs-dyMBTKgd_ut4gTAPpYNUnw7kaVUS1BehYEuQ
+2019-06-17T14:42:52.318-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40316 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:42:52.319-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:42:52.320-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:43:08.188-0400 INFO Started DemoApplication in 16.61 seconds (JVM running for 18.216)
+2019-06-17T14:43:21.476-0400 INFO DAO access_token: Bearer A21AAFGY0vyjS4QKvmYslrXi5xTx-jDYS-bZNHs3XQip4VzIFHORSXLGc4MWbL2o9Y71fF1utLx5vHLG7oTjGsNnmx7KuLqWQ
+2019-06-17T14:43:34.467-0400 INFO 
+
+
+
+
+
+
+
+
+***********************************************************************************
+Author: hunter 
+Date: 6/2019 
+Project: payment backend system based on payapl api for bikerent and bike tuors
+Checkout Type: pos_rents_orders
+Database: maysql
+***********************************************************************************
+2019-06-17T14:43:34.469-0400 INFO 
+
+-----------------------------------------------ErrorHanding-----------------------------------------------
+2019-06-17T14:43:34.469-0400 INFO in 
+{
+  "paypal": {
+    "number": "4417119669820331",
+	"type": "visa",
+	"expire_month": "02",
+	"expire_year": "2021",
+	"cvv2": "123",
+	"first_name": "Mar",
+	"last_name": "Singer",
+	"payment_method": "credit_card",
+    "total": "8.0",
+    "currency": "USD"
+  },
+  "pos_rents_orders": {
+  	"total_price_before_tax": "8",
+  	"total_price_after_tax": "7.0",
+  	"customer_name": "customer_firstName",
+  	"customer_lastname": "customer_lastName",
+  	"customer_cc_name": "customer_cc__firstName",
+  	"customer_cc_lastname": "customer_cc__lastName",
+  	"customer_email": "customer@gmail.com",
+  	"duration": "2 hours",
+  	
+  	"adult": 1,
+  	"child": 2,
+  	"tandem": 3,
+  	"road": 4,
+  	"mountain": 5,
+  	"hand": 6,
+  	"electric_bike": 7,
+  	"electric_hand": 8,
+  	"elliptigo": 9,
+  	"tricycle": 10,
+  	"carbon_road": 11,
+  	"total_bikes": 12,
+  	"trailer":  13,
+  	"kid_trailer": 14,
+  	"basket": 15,
+  	"seat": 16,
+  	"dropoff": 1,
+  	
+  	"insurance": 1
+  }
+}
+
+
+2019-06-17T14:43:34.470-0400 INFO paypal: {"number":"4417119669820331","type":"visa","expire_month":"02","expire_year":"2021","cvv2":"123","first_name":"Mar","last_name":"Singer","payment_method":"credit_card","total":"8.0","currency":"USD"}
+2019-06-17T14:43:34.471-0400 INFO type: visa
+2019-06-17T14:43:34.471-0400 INFO expire_month: 02
+2019-06-17T14:43:34.471-0400 INFO expire_year: 2021
+2019-06-17T14:43:34.471-0400 INFO cvv2: 123
+2019-06-17T14:43:34.471-0400 INFO first_name: Mar
+2019-06-17T14:43:34.471-0400 INFO last_name: Singer
+2019-06-17T14:43:34.471-0400 INFO payment_method: credit_card
+2019-06-17T14:43:34.471-0400 INFO total: 8.0
+2019-06-17T14:43:34.471-0400 INFO currency: USD
+2019-06-17T14:43:34.471-0400 INFO payapl type is good 
+2019-06-17T14:43:34.471-0400 INFO payapl expire_month is good 
+2019-06-17T14:43:34.471-0400 INFO payapl expire_year is good 
+2019-06-17T14:43:34.471-0400 INFO payapl total is good 
+2019-06-17T14:43:34.472-0400 INFO pos_rents_orders: {"total_price_before_tax":"8","total_price_after_tax":"7.0","customer_name":"customer_firstName","customer_lastname":"customer_lastName","customer_cc_name":"customer_cc__firstName","customer_cc_lastname":"customer_cc__lastName","customer_email":"customer@gmail.com","duration":"2 hours","adult":1,"child":2,"tandem":3,"road":4,"mountain":5,"hand":6,"electric_bike":7,"electric_hand":8,"elliptigo":9,"tricycle":10,"carbon_road":11,"total_bikes":12,"trailer":13,"kid_trailer":14,"basket":15,"seat":16,"dropoff":1,"insurance":1}
+2019-06-17T14:43:34.472-0400 INFO total_price_before_tax: 8
+2019-06-17T14:43:34.472-0400 INFO total_price_after_tax: 7.0
+2019-06-17T14:43:34.472-0400 INFO customer_name: customer_firstName
+2019-06-17T14:43:34.472-0400 INFO customer_lastname: customer_lastName
+2019-06-17T14:43:34.472-0400 INFO customer_cc_name: customer_cc__firstName
+2019-06-17T14:43:34.472-0400 INFO customer_cc_lastname: customer_cc__lastName
+2019-06-17T14:43:34.472-0400 INFO customer_email: customer@gmail.com
+2019-06-17T14:43:34.472-0400 INFO duration: 2 hours
+2019-06-17T14:43:34.472-0400 INFO adult: 1
+2019-06-17T14:43:34.472-0400 INFO child: 2
+2019-06-17T14:43:34.472-0400 INFO tandem: 3
+2019-06-17T14:43:34.472-0400 INFO road: 4
+2019-06-17T14:43:34.472-0400 INFO mountain: 5
+2019-06-17T14:43:34.472-0400 INFO hand: 6
+2019-06-17T14:43:34.473-0400 INFO electric_bike: 7
+2019-06-17T14:43:34.473-0400 INFO electric_hand: 8
+2019-06-17T14:43:34.473-0400 INFO elliptigo: 9
+2019-06-17T14:43:34.473-0400 INFO tricycle: 10
+2019-06-17T14:43:34.473-0400 INFO carbon_road: 11
+2019-06-17T14:43:34.474-0400 INFO trailer: 13
+2019-06-17T14:43:34.474-0400 INFO kid_trailer: 14
+2019-06-17T14:43:34.474-0400 INFO basket: 15
+2019-06-17T14:43:34.474-0400 INFO seat: 16
+2019-06-17T14:43:34.474-0400 INFO dropoff: 1
+2019-06-17T14:43:34.474-0400 INFO insurance: 1
+2019-06-17T14:43:34.489-0400 INFO 
+
+-----------------------------------------------payal_api-----------------------------------------------
+2019-06-17T14:43:35.206-0400 INFO DAO access_token: Bearer A21AAFGY0vyjS4QKvmYslrXi5xTx-jDYS-bZNHs3XQip4VzIFHORSXLGc4MWbL2o9Y71fF1utLx5vHLG7oTjGsNnmx7KuLqWQ
+2019-06-17T14:43:47.942-0400 INFO payapl resposonse {"id":"PAY-43G803203J2729507LUD56WA","create_time":"2019-06-17T18:43:36Z","update_time":"2019-06-17T18:43:47Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx0331","expire_month":"2","expire_year":"2021","first_name":"Mar","last_name":"Singer"}}]},"transactions":[{"amount":{"total":"8.00","currency":"USD","details":{"subtotal":"8.00"}},"description":"This is the payment transaction description.","related_resources":[{"sale":{"id":"3NB84196KS131705F","create_time":"2019-06-17T18:43:36Z","update_time":"2019-06-17T18:43:47Z","amount":{"total":"8.00","currency":"USD"},"state":"completed","parent_payment":"PAY-43G803203J2729507LUD56WA","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3NB84196KS131705F","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/3NB84196KS131705F/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-43G803203J2729507LUD56WA","rel":"parent_payment","method":"GET"}],"fmf_details":{},"processor_response":{"avs_code":"Y","cvv_code":"M"}}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-43G803203J2729507LUD56WA","rel":"self","method":"GET"}]}
+2019-06-17T14:43:47.943-0400 INFO 
+
+-----------------------------------------------save to table pos_rents_orders----------------------------------------------->
+2019-06-17T14:43:47.944-0400 INFO pos_rents_orders new rows: com.example.demo.model.Pos_rents_orders@79beb546
+2019-06-17T14:43:47.958-0400 INFO com.example.demo.model.Pos_rents_orders@79beb546[duration=2 hours,adult=1,child=2,tandem=3,road=4,mountain=5,hand=6,electric_bike=7,electric_hand=8,elliptigo=9,tricycle=10,carbon_road=11,total_bikes=12,trailer=13,kid_trailer=14,basket=15,seat=16,locks=0,dropoff=1,id=0,order_id=PAY-43G803203J2729507LUD56WA,cashier_email=reservation@bikerent.nyc,total_price_before_tax=8.0,total_price_after_tax=7.0,customer_name=customer_firstName,customer_lastname=customer_lastName,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-17 14:43:47,date=2019-06-17,time=14:43:47,insurance=1,barcode=<null>,served=1,sequantial=<null>]
+2019-06-17T14:43:48.288-0400 WARN 
+placement is sccessful
+2019-06-17T14:44:32.261-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 40333 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-17T14:44:32.262-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-17T14:44:32.263-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-17T14:44:43.648-0400 INFO Started DemoApplication in 12.094 seconds (JVM running for 14.065)
+2019-06-17T14:44:52.069-0400 INFO DAO access_token: Bearer A21AAFaLHWhiUt9zhRGG6jrI2kKipSgGn_N9A3MiAbZL3nnp4zGG7chx9DEs-dyMBTKgd_ut4gTAPpYNUnw7kaVUS1BehYEuQ

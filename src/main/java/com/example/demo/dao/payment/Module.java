@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Module {
     private static final Logger logger = LogManager.getLogger(Module.class);
+    boolean live= true;//live / sandbox
 
     public JsonObject paypalJson( String resquestStr) {
         JsonObject resquestJson= new JsonParser().parse(resquestStr).getAsJsonObject();;
@@ -49,18 +50,23 @@ public class Module {
         //sanbox
         String username = "AX-S0XiawqbN3uwmA94PlGkeg3PQBy20Y7KrUBEC4t59HSZX-9L9Z3xNrwqwv3WslImC8h8TpFNd--3-";
         String password = "EH-8z3fcaHpNQcUoxPjSZ73-al-oa1zBUIo3V5KzFIjDtCnHsiYsZ5_HcJxGAlbFioWKa_RRelDckz78";
-        //real
-        username = "ATkdjMio7RqlUYJV80NAQbrSFjVP9GUCvDlXrKpL-myiwc4HKQRTnKzdmsoTMFGVDS2Ik3k_l4-gweFH";
-        password = "ELia830Mmc_Ws4F8dLw3L_Q4E3eH8Cw1nZRAz4eZngdoLtE80DsoN6UjdH7K_9r24_wxWJG9ku7u4nMs";
-
-
+        //live
+        if(live){
+            username = "ATkdjMio7RqlUYJV80NAQbrSFjVP9GUCvDlXrKpL-myiwc4HKQRTnKzdmsoTMFGVDS2Ik3k_l4-gweFH";
+            password = "ELia830Mmc_Ws4F8dLw3L_Q4E3eH8Cw1nZRAz4eZngdoLtE80DsoN6UjdH7K_9r24_wxWJG9ku7u4nMs";
+        }
 
         String access_token= null;
 
         try {
             String tokenInput = "grant_type=client_credentials";
             System.setProperty("https.protocols", "TLSv1.1,TLSv1.2,SSLv3,SSLv2Hello");
-            java.net.URL url = new java.net.URL("https://api.sandbox.paypal.com/v1/oauth2/token");
+
+            String urlToken= "https://api.sandbox.paypal.com/v1/oauth2/token";//sanbox
+            if(live)
+                urlToken= "https://api.paypal.com/v1/oauth2/token"; //live
+
+            java.net.URL url = new java.net.URL(urlToken);
             java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
 
             String credentials = username + ":" + password;
@@ -132,6 +138,8 @@ public class Module {
         try {
 
             URL url = new URL("https://api.sandbox.paypal.com/v1/payments/payment");
+            if(live)
+                url = new URL("https://api.paypal.com/v1/payments/payment");
 
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
