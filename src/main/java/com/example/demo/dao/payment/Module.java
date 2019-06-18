@@ -1,5 +1,8 @@
 package com.example.demo.dao.payment;
 
+import com.example.demo.dao.payment.ErrorHandling;
+
+
 import com.example.demo.model.Pos_rents_orders;
 import com.example.demo.model.Pos_tours_orders;
 
@@ -25,7 +28,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Module {
     private static final Logger logger = LogManager.getLogger(Module.class);
-    boolean live= false;//live : sandbox
+    boolean live= true;//live : sandbox
+    ErrorHandling errorHandling= new ErrorHandling();
 
     public JsonObject paypalJson( String resquestStr) {
         JsonObject resquestJson= new JsonParser().parse(resquestStr).getAsJsonObject();;
@@ -108,8 +112,10 @@ public class Module {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error( "can not get access token ", e);
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "can not get access token ", e);
+            String m= "can not get access token ";
+
+            m= errorHandling.System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
 
         logger.info("DAO access_token: " + "Bearer " + access_token);
@@ -229,10 +235,9 @@ public class Module {
             logger.error("error: " + m);
             logger.error("reciept: " + recieptStr);
 
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, m, e);
+            m= errorHandling.PaypalError;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
-
 
         JsonObject recieptJson = new JsonParser().parse( recieptStr ).getAsJsonObject();
         //logger.info("recieptJson " + recieptJson);
@@ -301,7 +306,9 @@ public class Module {
             //newRow.setSequantial();
         }catch (Exception e) {
             logger.error( "save database pos_rents_orders " + e.getMessage() );
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "parse json <pos_rents_orders> error " + e.getMessage(), e);
+            String m= "parse json <pos_rents_orders> error ";
+            m= errorHandling.System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m + e.getMessage(), e);
         }
 
         logger.info( "pos_rents_orders new rows: " + newRow );
@@ -360,7 +367,9 @@ public class Module {
             //newRow.setSequantial();
         }catch (Exception e) {
             logger.error( "save database pos_tours_orders " + e.getMessage() );
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "parse json <pos_tours_orders> error " + e.getMessage(), e);
+            String m= "parse json <pos_tours_orders> error "+ e.getMessage();
+            m= errorHandling.System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m , e);
         }
 
         logger.info( "pos_tours_orders new rows: " + newRow );

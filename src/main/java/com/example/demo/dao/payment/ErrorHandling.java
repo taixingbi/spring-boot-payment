@@ -33,6 +33,10 @@ public class ErrorHandling {
 
     private static final Logger logger = LogManager.getLogger(Module.class);
 
+    String PaypalError= "Sorry, the payment process failed. You can try again, or try a different credit card";
+    String Validation= "JUST MAKE IT USER FRIENDLY";
+    String System500= "Opps, something went wrong. Try again a different time";
+
     private JsonObject parseJson2Obj(String in) {
         JsonObject out;
 
@@ -40,7 +44,9 @@ public class ErrorHandling {
             out = new JsonParser().parse(in).getAsJsonObject();
         } catch (Exception e) {
             logger.error("JSON FORMAT ERROR " + in);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "JSON FORMAT ERROR: " + e.getMessage(), e);
+            String m= "JSON FORMAT ERROR: " + e.getMessage();
+            m= System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
         logger.info("in " + in);
         return out;
@@ -52,7 +58,9 @@ public class ErrorHandling {
             out = in.get(key).getAsJsonObject();
         } catch (Exception e) {
             logger.error("JSON KEY ERROR " + "'" + key + "'" + " not found");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "JSON KEY ERROR: " + "'" + key + "'" + " not found");
+            String m= "JSON KEY ERROR: " + "'" + key + "'" + " not found";
+            m= System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
         logger.info(key + ": " + out);
 
@@ -65,7 +73,9 @@ public class ErrorHandling {
             out = in.get(key).getAsString();
         } catch (Exception e) {
             logger.error("JSON KEY ERROR " + "'" + key + "'" + " not found");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "JSON KEY ERROR: " + "'" + key + "'" + " not found");
+            String m= "JSON KEY ERROR: " + "'" + key + "'" + " not found";
+            m= System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
         logger.info(key + ": " + out);
 
@@ -82,7 +92,9 @@ public class ErrorHandling {
         ) {
             logger.info("payapl type is good ");
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALIDATION ERROR: payapl <type> should be one of  <visa> <mastercard> <americanexpress> <discover>");
+            String m= "VALIDATION ERROR: payapl <type> should be one of  <visa> <mastercard> <americanexpress> <discover>";
+            m= "Please input right visa type";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
         String expireMonth = paypalJson.get("expire_month").getAsString();
@@ -101,14 +113,18 @@ public class ErrorHandling {
         ) {
             logger.info("payapl expire_month is good ");
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALIDATION ERROR: payapl <expire_month> should be <01> <02>.. <12>");
+            String m= "VALIDATION ERROR: payapl <expire_month> should be <01> <02>.. <12>";
+            m= " Expiration month is wrong";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
         String expireYear = paypalJson.get("expire_year").getAsString();
         if (Integer.valueOf(expireYear) >= 2019) {
             logger.info("payapl expire_year is good ");
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALIDATION ERROR: payapl <expire_month> should not be less current year");
+            String m= "VALIDATION ERROR: payapl <expire_month> should not be less current year";
+            m= " Expiration Year is wrong";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
         String total = paypalJson.get("total").getAsString();
@@ -116,18 +132,21 @@ public class ErrorHandling {
         if (total.matches(regex)) {
             logger.info("payapl total is good ");
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "VALIDATION ERROR: payapl <total> is wrong. No letters, No space. it should be like eg <7> <7.0> ");
+            String m= "VALIDATION ERROR: payapl <total> is wrong. No letters, No space. it should be like eg <7> <7.0> ";
+            m= System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
     }
 
     public void parseJson( String resquestStr,  String check_out_type){
         logger.info("\n\n-----------------------------------------------ErrorHanding-----------------------------------------------" );
 
-
         if( !check_out_type.equals("pos_rents_orders") &&  !check_out_type.equals("pos_tours_orders"))
         {
             logger.error("URL ERROR: '.../pos_tours_orders' or '.../pos_tours_orders' not found,   " );
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "URL ERROR: '.../pos_tours_orders' or '.../pos_tours_orders' not found,   ");
+            String m= "URL ERROR: '.../pos_tours_orders' or '.../pos_tours_orders' not found,   ";
+            m= System500;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
         JsonObject resquestJson= parseJson2Obj(resquestStr);
