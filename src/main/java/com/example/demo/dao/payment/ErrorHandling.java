@@ -37,6 +37,7 @@ public class ErrorHandling {
     String Validation= "JUST MAKE IT USER FRIENDLY";
     String System500= "Opps, something went wrong. Try again a different time";
 
+    boolean test= true;
     private JsonObject parseJson2Obj(String in) {
         JsonObject out;
 
@@ -45,7 +46,7 @@ public class ErrorHandling {
         } catch (Exception e) {
             logger.error("JSON FORMAT ERROR " + in);
             String m= "JSON FORMAT ERROR: " + e.getMessage();
-            m= System500;
+            if(!test) m= System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
         logger.info("in " + in);
@@ -59,7 +60,7 @@ public class ErrorHandling {
         } catch (Exception e) {
             logger.error("JSON KEY ERROR " + "'" + key + "'" + " not found");
             String m= "JSON KEY ERROR: " + "'" + key + "'" + " not found";
-            m= System500;
+            if(!test) m= System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
         logger.info(key + ": " + out);
@@ -74,7 +75,7 @@ public class ErrorHandling {
         } catch (Exception e) {
             logger.error("JSON KEY ERROR " + "'" + key + "'" + " not found");
             String m= "JSON KEY ERROR: " + "'" + key + "'" + " not found";
-            m= System500;
+            if(!test) m= System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
         logger.info(key + ": " + out);
@@ -93,7 +94,7 @@ public class ErrorHandling {
             logger.info("payapl type is good ");
         } else {
             String m= "VALIDATION ERROR: payapl <type> should be one of  <visa> <mastercard> <americanexpress> <discover>";
-            m= "Please input right visa type";
+            if(!test) m= "Please input right visa type";
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
@@ -114,7 +115,7 @@ public class ErrorHandling {
             logger.info("payapl expire_month is good ");
         } else {
             String m= "VALIDATION ERROR: payapl <expire_month> should be <01> <02>.. <12>";
-            m= " Expiration month is wrong";
+            if(!test) m= " Expiration month is wrong";
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
@@ -123,7 +124,7 @@ public class ErrorHandling {
             logger.info("payapl expire_year is good ");
         } else {
             String m= "VALIDATION ERROR: payapl <expire_month> should not be less current year";
-            m= " Expiration Year is wrong";
+            if(!test) m= " Expiration Year is wrong";
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 
@@ -133,7 +134,7 @@ public class ErrorHandling {
             logger.info("payapl total is good ");
         } else {
             String m= "VALIDATION ERROR: payapl <total> is wrong. No letters, No space. it should be like eg <7> <7.0> ";
-            m= System500;
+            if(!test) m= System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
     }
@@ -145,7 +146,7 @@ public class ErrorHandling {
         {
             logger.error("URL ERROR: '.../pos_tours_orders' or '.../pos_tours_orders' not found,   " );
             String m= "URL ERROR: '.../pos_tours_orders' or '.../pos_tours_orders' not found,   ";
-            m= System500;
+            if(!test) m= System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m);
         }
 

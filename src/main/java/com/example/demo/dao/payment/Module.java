@@ -29,6 +29,8 @@ import org.apache.logging.log4j.Logger;
 public class Module {
     private static final Logger logger = LogManager.getLogger(Module.class);
     boolean live= false;//live : sandbox
+    boolean test= true;
+
     ErrorHandling errorHandling= new ErrorHandling();
 
     public JsonObject paypalJson( String resquestStr) {
@@ -114,7 +116,7 @@ public class Module {
             logger.error( "can not get access token ", e);
             String m= "can not get access token ";
 
-            m= errorHandling.System500;
+            if(!test) m= errorHandling.System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
 
@@ -235,7 +237,7 @@ public class Module {
             logger.error("error: " + m);
             logger.error("reciept: " + recieptStr);
 
-            m= errorHandling.PaypalError;
+            if(!test) m= errorHandling.PaypalError;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m, e);
         }
 
@@ -307,7 +309,7 @@ public class Module {
         }catch (Exception e) {
             logger.error( "save database pos_rents_orders " + e.getMessage() );
             String m= "parse json <pos_rents_orders> error ";
-            m= errorHandling.System500;
+            if(!test) m= errorHandling.System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m + e.getMessage(), e);
         }
 
@@ -368,7 +370,7 @@ public class Module {
         }catch (Exception e) {
             logger.error( "save database pos_tours_orders " + e.getMessage() );
             String m= "parse json <pos_tours_orders> error "+ e.getMessage();
-            m= errorHandling.System500;
+            if(!test) m= errorHandling.System500;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, m , e);
         }
 
