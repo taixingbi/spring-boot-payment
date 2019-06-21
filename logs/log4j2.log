@@ -21847,3 +21847,427 @@ Database: maysql
 2019-06-18T14:09:29.508-0400 INFO com.example.demo.model.Pos_rents_orders@5fb4ad[duration=2 hours,adult=1,child=2,tandem=3,road=4,mountain=5,hand=6,electric_bike=7,electric_hand=8,elliptigo=9,tricycle=10,carbon_road=11,total_bikes=12,trailer=13,kid_trailer=14,basket=15,seat=16,locks=0,dropoff=1,id=0,order_id=PAY-1ML16267LY2145115LUESRVA,cashier_email=reservation@bikerent.nyc,total_price_before_tax=8.0,total_price_after_tax=7.0,customer_name=customer_firstName,customer_lastname=customer_lastName,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-18 14:09:29,date=2019-06-18,time=14:09:29,insurance=1,barcode=<null>,served=1,sequantial=<null>]
 2019-06-18T14:09:29.722-0400 WARN 
 placement is sccessful
+2019-06-21T10:55:31.282-0400 INFO Starting DemoApplication on taixings-mbp.lan with PID 1503 (started by taixingbi in /Users/taixingbi/Documents/spring boot/spring-boot-payment)
+2019-06-21T10:55:31.283-0400 DEBUG Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-06-21T10:55:31.286-0400 INFO No active profile set, falling back to default profiles: default
+2019-06-21T10:55:42.700-0400 INFO Started DemoApplication in 12.321 seconds (JVM running for 15.104)
+2019-06-21T10:56:09.253-0400 INFO 
+
+
+
+
+
+
+
+
+***********************************************************************************
+Author: hunter 
+Date: 6/2019 
+Project: payment backend system based on payapl api for bikerent and bike tuors
+Checkout Type: pos_tours_orders
+Database: maysql
+***********************************************************************************
+2019-06-21T10:56:09.256-0400 INFO 
+
+-----------------------------------------------ErrorHanding-----------------------------------------------
+2019-06-21T10:56:09.263-0400 INFO in 
+{
+  "paypal": {
+    "number": "4554889957692955",
+	"type": "visa",
+	"expire_month": "01",
+	"expire_year": "2021",
+	"cvv2": "123",
+	"first_name": "Mar",
+	"last_name": "Singer",
+	"payment_method": "credit_card",
+    "total": "7.0",
+    "currency": "USD"
+  },
+ "pos_tours_orders": {
+    "total_price_before_tax": "7.0",
+    "total_price_after_tax": "7.00",
+    "customer_name": "customer_firstName",
+    "customer_lastname": "customer_lastName",
+    "customer_cc_name": "customer_cc__firstName",
+    "customer_cc_lastname": "customer_cc__lastName",
+    "customer_email": "customer@gmail.com",
+    
+    "tour_type": "public(2h)",
+    "tour_place": "Central Park",
+    "adult": 1,
+    "child": 2,
+    "walking": 3,
+    "pedicab": 4,
+    "total_people": 5,
+    "trailer":  6,
+    "kid_trailer": 7,
+    "basket": 8,
+    "seat": 9,
+    
+    "insurance": 1
+  }
+}
+
+
+2019-06-21T10:56:09.265-0400 INFO paypal: {"number":"4554889957692955","type":"visa","expire_month":"01","expire_year":"2021","cvv2":"123","first_name":"Mar","last_name":"Singer","payment_method":"credit_card","total":"7.0","currency":"USD"}
+2019-06-21T10:56:09.266-0400 INFO type: visa
+2019-06-21T10:56:09.266-0400 INFO expire_month: 01
+2019-06-21T10:56:09.266-0400 INFO expire_year: 2021
+2019-06-21T10:56:09.266-0400 INFO cvv2: 123
+2019-06-21T10:56:09.266-0400 INFO first_name: Mar
+2019-06-21T10:56:09.266-0400 INFO last_name: Singer
+2019-06-21T10:56:09.266-0400 INFO payment_method: credit_card
+2019-06-21T10:56:09.266-0400 INFO total: 7.0
+2019-06-21T10:56:09.266-0400 INFO currency: USD
+2019-06-21T10:56:09.266-0400 INFO payapl type is good 
+2019-06-21T10:56:09.266-0400 INFO payapl expire_month is good 
+2019-06-21T10:56:09.266-0400 INFO payapl expire_year is good 
+2019-06-21T10:56:09.266-0400 INFO payapl total is good 
+2019-06-21T10:56:09.267-0400 INFO pos_tours_orders: {"total_price_before_tax":"7.0","total_price_after_tax":"7.00","customer_name":"customer_firstName","customer_lastname":"customer_lastName","customer_cc_name":"customer_cc__firstName","customer_cc_lastname":"customer_cc__lastName","customer_email":"customer@gmail.com","tour_type":"public(2h)","tour_place":"Central Park","adult":1,"child":2,"walking":3,"pedicab":4,"total_people":5,"trailer":6,"kid_trailer":7,"basket":8,"seat":9,"insurance":1}
+2019-06-21T10:56:09.267-0400 INFO total_price_before_tax: 7.0
+2019-06-21T10:56:09.267-0400 INFO total_price_after_tax: 7.00
+2019-06-21T10:56:09.267-0400 INFO customer_name: customer_firstName
+2019-06-21T10:56:09.267-0400 INFO customer_lastname: customer_lastName
+2019-06-21T10:56:09.267-0400 INFO customer_cc_name: customer_cc__firstName
+2019-06-21T10:56:09.267-0400 INFO customer_cc_lastname: customer_cc__lastName
+2019-06-21T10:56:09.267-0400 INFO customer_email: customer@gmail.com
+2019-06-21T10:56:09.267-0400 INFO tour_type: public(2h)
+2019-06-21T10:56:09.267-0400 INFO tour_place: Central Park
+2019-06-21T10:56:09.267-0400 INFO adult: 1
+2019-06-21T10:56:09.267-0400 INFO child: 2
+2019-06-21T10:56:09.267-0400 INFO walking: 3
+2019-06-21T10:56:09.267-0400 INFO pedicab: 4
+2019-06-21T10:56:09.267-0400 INFO total_people: 5
+2019-06-21T10:56:09.267-0400 INFO trailer: 6
+2019-06-21T10:56:09.267-0400 INFO kid_trailer: 7
+2019-06-21T10:56:09.267-0400 INFO basket: 8
+2019-06-21T10:56:09.267-0400 INFO seat: 9
+2019-06-21T10:56:09.267-0400 INFO insurance: 1
+2019-06-21T10:56:09.268-0400 INFO 
+
+-----------------------------------------------payal_api-----------------------------------------------
+2019-06-21T10:56:11.632-0400 INFO DAO access_token: Bearer A21AAGA9l8-mm5EjUIVrUaTjif2VulwQBFrSiKZ6Z5C9sGa11Qwwz9Yv0RemCTTJSrfeG4g8_tdnxsgghM9JLf8Rc9nL0e6sA
+2019-06-21T10:56:18.415-0400 INFO payapl resposonse {"id":"PAY-74A85143HK7200622LUGPADA","create_time":"2019-06-21T14:56:12Z","update_time":"2019-06-21T14:56:18Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx2955","expire_month":"1","expire_year":"2021","first_name":"Mar","last_name":"Singer"}}]},"transactions":[{"amount":{"total":"7.00","currency":"USD","details":{"subtotal":"7.00"}},"description":"This is the payment transaction description.","related_resources":[{"sale":{"id":"4XT83937N8384263W","create_time":"2019-06-21T14:56:12Z","update_time":"2019-06-21T14:56:18Z","amount":{"total":"7.00","currency":"USD"},"state":"completed","parent_payment":"PAY-74A85143HK7200622LUGPADA","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/4XT83937N8384263W","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/4XT83937N8384263W/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-74A85143HK7200622LUGPADA","rel":"parent_payment","method":"GET"}],"fmf_details":{},"processor_response":{"avs_code":"Y","cvv_code":"S"}}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-74A85143HK7200622LUGPADA","rel":"self","method":"GET"}]}
+2019-06-21T10:56:18.416-0400 INFO 
+
+-----------------------------------------------save to table  pos_tours_orders----------------------------------------------->
+2019-06-21T10:56:18.418-0400 INFO pos_tours_orders new rows: com.example.demo.model.Pos_tours_orders@455e2d79
+2019-06-21T10:56:18.431-0400 INFO com.example.demo.model.Pos_tours_orders@455e2d79[tour_type=public(2h),tour_place=Central Park,adult=1,child=2,walking=3,pedicab=4,total_people=5,trailer=6,kid_trailer=7,basket=8,seat=9,id=0,order_id=PAY-74A85143HK7200622LUGPADA,cashier_email=reservation@bikerent.nyc,total_price_before_tax=7.0,total_price_after_tax=7.0,customer_name=customer_firstName,customer_lastname=customer_lastName,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-21 10:56:18,date=2019-06-21,time=10:56:18,insurance=1,barcode=<null>,served=1,sequantial=<null>]
+2019-06-21T10:56:19.042-0400 WARN 
+placement is sccessful
+2019-06-21T10:58:21.441-0400 INFO 
+
+
+
+
+
+
+
+
+***********************************************************************************
+Author: hunter 
+Date: 6/2019 
+Project: payment backend system based on payapl api for bikerent and bike tuors
+Checkout Type: pos_tours_orders
+Database: maysql
+***********************************************************************************
+2019-06-21T10:58:21.442-0400 INFO 
+
+-----------------------------------------------ErrorHanding-----------------------------------------------
+2019-06-21T10:58:21.443-0400 INFO in 
+{
+  "paypal": {
+    "number": "4554889957692955",
+	"type": "visa",
+	"expire_month": "01",
+	"expire_year": "2021",
+	"cvv2": "123",
+	"first_name": "Mar",
+	"last_name": "Singer",
+	"payment_method": "credit_card",
+    "total": "7.0",
+    "currency": "USD"
+  },
+ "pos_tours_orders": {
+    "total_price_before_tax": "7.0",
+    "total_price_after_tax": "7.00",
+    "customer_name": "di",
+    "customer_lastname": "xu",
+    "customer_cc_name": "customer_cc__firstName",
+    "customer_cc_lastname": "customer_cc__lastName",
+    "customer_email": "customer@gmail.com",
+    
+    "tour_type": "public(2h)",
+    "tour_place": "Central Park",
+    "adult": 1,
+    "child": 2,
+    "walking": 3,
+    "pedicab": 4,
+    "total_people": 5,
+    "trailer":  6,
+    "kid_trailer": 7,
+    "basket": 8,
+    "seat": 9,
+    
+    "insurance": 1
+  }
+}
+
+
+2019-06-21T10:58:21.443-0400 INFO paypal: {"number":"4554889957692955","type":"visa","expire_month":"01","expire_year":"2021","cvv2":"123","first_name":"Mar","last_name":"Singer","payment_method":"credit_card","total":"7.0","currency":"USD"}
+2019-06-21T10:58:21.444-0400 INFO type: visa
+2019-06-21T10:58:21.444-0400 INFO expire_month: 01
+2019-06-21T10:58:21.445-0400 INFO expire_year: 2021
+2019-06-21T10:58:21.445-0400 INFO cvv2: 123
+2019-06-21T10:58:21.445-0400 INFO first_name: Mar
+2019-06-21T10:58:21.445-0400 INFO last_name: Singer
+2019-06-21T10:58:21.445-0400 INFO payment_method: credit_card
+2019-06-21T10:58:21.445-0400 INFO total: 7.0
+2019-06-21T10:58:21.446-0400 INFO currency: USD
+2019-06-21T10:58:21.446-0400 INFO payapl type is good 
+2019-06-21T10:58:21.446-0400 INFO payapl expire_month is good 
+2019-06-21T10:58:21.447-0400 INFO payapl expire_year is good 
+2019-06-21T10:58:21.447-0400 INFO payapl total is good 
+2019-06-21T10:58:21.448-0400 INFO pos_tours_orders: {"total_price_before_tax":"7.0","total_price_after_tax":"7.00","customer_name":"di","customer_lastname":"xu","customer_cc_name":"customer_cc__firstName","customer_cc_lastname":"customer_cc__lastName","customer_email":"customer@gmail.com","tour_type":"public(2h)","tour_place":"Central Park","adult":1,"child":2,"walking":3,"pedicab":4,"total_people":5,"trailer":6,"kid_trailer":7,"basket":8,"seat":9,"insurance":1}
+2019-06-21T10:58:21.448-0400 INFO total_price_before_tax: 7.0
+2019-06-21T10:58:21.448-0400 INFO total_price_after_tax: 7.00
+2019-06-21T10:58:21.448-0400 INFO customer_name: di
+2019-06-21T10:58:21.448-0400 INFO customer_lastname: xu
+2019-06-21T10:58:21.448-0400 INFO customer_cc_name: customer_cc__firstName
+2019-06-21T10:58:21.448-0400 INFO customer_cc_lastname: customer_cc__lastName
+2019-06-21T10:58:21.449-0400 INFO customer_email: customer@gmail.com
+2019-06-21T10:58:21.449-0400 INFO tour_type: public(2h)
+2019-06-21T10:58:21.449-0400 INFO tour_place: Central Park
+2019-06-21T10:58:21.449-0400 INFO adult: 1
+2019-06-21T10:58:21.449-0400 INFO child: 2
+2019-06-21T10:58:21.450-0400 INFO walking: 3
+2019-06-21T10:58:21.450-0400 INFO pedicab: 4
+2019-06-21T10:58:21.450-0400 INFO total_people: 5
+2019-06-21T10:58:21.450-0400 INFO trailer: 6
+2019-06-21T10:58:21.450-0400 INFO kid_trailer: 7
+2019-06-21T10:58:21.451-0400 INFO basket: 8
+2019-06-21T10:58:21.452-0400 INFO seat: 9
+2019-06-21T10:58:21.453-0400 INFO insurance: 1
+2019-06-21T10:58:21.453-0400 INFO 
+
+-----------------------------------------------payal_api-----------------------------------------------
+2019-06-21T10:58:22.790-0400 INFO DAO access_token: Bearer A21AAGA9l8-mm5EjUIVrUaTjif2VulwQBFrSiKZ6Z5C9sGa11Qwwz9Yv0RemCTTJSrfeG4g8_tdnxsgghM9JLf8Rc9nL0e6sA
+2019-06-21T10:58:29.530-0400 INFO payapl resposonse {"id":"PAY-20402387FG191883LLUGPBDY","create_time":"2019-06-21T14:58:23Z","update_time":"2019-06-21T14:58:29Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx2955","expire_month":"1","expire_year":"2021","first_name":"Mar","last_name":"Singer"}}]},"transactions":[{"amount":{"total":"7.00","currency":"USD","details":{"subtotal":"7.00"}},"description":"This is the payment transaction description.","related_resources":[{"sale":{"id":"6BT94819UR512353W","create_time":"2019-06-21T14:58:23Z","update_time":"2019-06-21T14:58:29Z","amount":{"total":"7.00","currency":"USD"},"state":"completed","parent_payment":"PAY-20402387FG191883LLUGPBDY","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/6BT94819UR512353W","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/6BT94819UR512353W/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-20402387FG191883LLUGPBDY","rel":"parent_payment","method":"GET"}],"fmf_details":{},"processor_response":{"avs_code":"Y","cvv_code":"S"}}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-20402387FG191883LLUGPBDY","rel":"self","method":"GET"}]}
+2019-06-21T10:58:29.531-0400 INFO 
+
+-----------------------------------------------save to table  pos_tours_orders----------------------------------------------->
+2019-06-21T10:58:29.533-0400 INFO pos_tours_orders new rows: com.example.demo.model.Pos_tours_orders@44d2ca8
+2019-06-21T10:58:29.535-0400 INFO com.example.demo.model.Pos_tours_orders@44d2ca8[tour_type=public(2h),tour_place=Central Park,adult=1,child=2,walking=3,pedicab=4,total_people=5,trailer=6,kid_trailer=7,basket=8,seat=9,id=0,order_id=PAY-20402387FG191883LLUGPBDY,cashier_email=reservation@bikerent.nyc,total_price_before_tax=7.0,total_price_after_tax=7.0,customer_name=di,customer_lastname=xu,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-21 10:58:29,date=2019-06-21,time=10:58:29,insurance=1,barcode=<null>,served=1,sequantial=<null>]
+2019-06-21T10:58:29.899-0400 WARN 
+placement is sccessful
+2019-06-21T11:00:31.739-0400 INFO 
+
+
+
+
+
+
+
+
+***********************************************************************************
+Author: hunter 
+Date: 6/2019 
+Project: payment backend system based on payapl api for bikerent and bike tuors
+Checkout Type: pos_tours_orders
+Database: maysql
+***********************************************************************************
+2019-06-21T11:00:31.744-0400 INFO 
+
+-----------------------------------------------ErrorHanding-----------------------------------------------
+2019-06-21T11:00:31.747-0400 INFO in 
+{
+  "paypal": {
+    "number": "4554889957692955",
+	"type": "visa",
+	"expire_month": "01",
+	"expire_year": "2021",
+	"cvv2": "123",
+	"first_name": "Mar",
+	"last_name": "Singer",
+	"payment_method": "credit_card",
+    "total": "7.0",
+    "currency": "USD"
+  },
+ "pos_tours_orders": {
+    "total_price_before_tax": "7.0",
+    "total_price_after_tax": "7.00",
+    "customer_name": "di",
+    "customer_lastname": "xu",
+    "customer_cc_name": "hiuh",
+    "customer_cc_lastname": "hjhk",
+    "customer_email": "customer@gmail.com",
+    
+    "tour_type": "public(2h)",
+    "tour_place": "Central Park",
+    "adult": 1,
+    "child": 9,
+    "walking": 3,
+    "pedicab": 9,
+    "total_people": 5,
+    "trailer":  7,
+    "kid_trailer": 7,
+    "basket": 8,
+    "seat": 9,
+    
+    "insurance": 1
+  }
+}
+
+
+2019-06-21T11:00:31.748-0400 INFO paypal: {"number":"4554889957692955","type":"visa","expire_month":"01","expire_year":"2021","cvv2":"123","first_name":"Mar","last_name":"Singer","payment_method":"credit_card","total":"7.0","currency":"USD"}
+2019-06-21T11:00:31.748-0400 INFO type: visa
+2019-06-21T11:00:31.748-0400 INFO expire_month: 01
+2019-06-21T11:00:31.748-0400 INFO expire_year: 2021
+2019-06-21T11:00:31.748-0400 INFO cvv2: 123
+2019-06-21T11:00:31.748-0400 INFO first_name: Mar
+2019-06-21T11:00:31.748-0400 INFO last_name: Singer
+2019-06-21T11:00:31.748-0400 INFO payment_method: credit_card
+2019-06-21T11:00:31.749-0400 INFO total: 7.0
+2019-06-21T11:00:31.749-0400 INFO currency: USD
+2019-06-21T11:00:31.749-0400 INFO payapl type is good 
+2019-06-21T11:00:31.749-0400 INFO payapl expire_month is good 
+2019-06-21T11:00:31.749-0400 INFO payapl expire_year is good 
+2019-06-21T11:00:31.750-0400 INFO payapl total is good 
+2019-06-21T11:00:31.752-0400 INFO pos_tours_orders: {"total_price_before_tax":"7.0","total_price_after_tax":"7.00","customer_name":"di","customer_lastname":"xu","customer_cc_name":"hiuh","customer_cc_lastname":"hjhk","customer_email":"customer@gmail.com","tour_type":"public(2h)","tour_place":"Central Park","adult":1,"child":9,"walking":3,"pedicab":9,"total_people":5,"trailer":7,"kid_trailer":7,"basket":8,"seat":9,"insurance":1}
+2019-06-21T11:00:31.752-0400 INFO total_price_before_tax: 7.0
+2019-06-21T11:00:31.752-0400 INFO total_price_after_tax: 7.00
+2019-06-21T11:00:31.752-0400 INFO customer_name: di
+2019-06-21T11:00:31.752-0400 INFO customer_lastname: xu
+2019-06-21T11:00:31.752-0400 INFO customer_cc_name: hiuh
+2019-06-21T11:00:31.752-0400 INFO customer_cc_lastname: hjhk
+2019-06-21T11:00:31.752-0400 INFO customer_email: customer@gmail.com
+2019-06-21T11:00:31.752-0400 INFO tour_type: public(2h)
+2019-06-21T11:00:31.752-0400 INFO tour_place: Central Park
+2019-06-21T11:00:31.752-0400 INFO adult: 1
+2019-06-21T11:00:31.752-0400 INFO child: 9
+2019-06-21T11:00:31.752-0400 INFO walking: 3
+2019-06-21T11:00:31.752-0400 INFO pedicab: 9
+2019-06-21T11:00:31.752-0400 INFO total_people: 5
+2019-06-21T11:00:31.753-0400 INFO trailer: 7
+2019-06-21T11:00:31.753-0400 INFO kid_trailer: 7
+2019-06-21T11:00:31.753-0400 INFO basket: 8
+2019-06-21T11:00:31.753-0400 INFO seat: 9
+2019-06-21T11:00:31.753-0400 INFO insurance: 1
+2019-06-21T11:00:31.753-0400 INFO 
+
+-----------------------------------------------payal_api-----------------------------------------------
+2019-06-21T11:00:32.515-0400 INFO DAO access_token: Bearer A21AAG6zMeFsjWU9ot3RrKSRa7-sKQ2ihG6m0qipec_RkwFOKa-XiBX6S_DmVKT5trBg1zTRRX5NnV-2WL4Z7-kvdRnOk4IyA
+2019-06-21T11:00:38.810-0400 INFO payapl resposonse {"id":"PAY-4FR24808MS7153315LUGPCEI","create_time":"2019-06-21T15:00:33Z","update_time":"2019-06-21T15:00:38Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx2955","expire_month":"1","expire_year":"2021","first_name":"Mar","last_name":"Singer"}}]},"transactions":[{"amount":{"total":"7.00","currency":"USD","details":{"subtotal":"7.00"}},"description":"This is the payment transaction description.","related_resources":[{"sale":{"id":"9BR45697CP414700V","create_time":"2019-06-21T15:00:33Z","update_time":"2019-06-21T15:00:38Z","amount":{"total":"7.00","currency":"USD"},"state":"completed","parent_payment":"PAY-4FR24808MS7153315LUGPCEI","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/9BR45697CP414700V","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/9BR45697CP414700V/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-4FR24808MS7153315LUGPCEI","rel":"parent_payment","method":"GET"}],"fmf_details":{},"processor_response":{"avs_code":"Y","cvv_code":"S"}}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-4FR24808MS7153315LUGPCEI","rel":"self","method":"GET"}]}
+2019-06-21T11:00:38.810-0400 INFO 
+
+-----------------------------------------------save to table  pos_tours_orders----------------------------------------------->
+2019-06-21T11:00:38.811-0400 INFO pos_tours_orders new rows: com.example.demo.model.Pos_tours_orders@74ef01ed
+2019-06-21T11:00:38.812-0400 INFO com.example.demo.model.Pos_tours_orders@74ef01ed[tour_type=public(2h),tour_place=Central Park,adult=1,child=9,walking=3,pedicab=9,total_people=5,trailer=7,kid_trailer=7,basket=8,seat=9,id=0,order_id=PAY-4FR24808MS7153315LUGPCEI,cashier_email=reservation@bikerent.nyc,total_price_before_tax=7.0,total_price_after_tax=7.0,customer_name=di,customer_lastname=xu,customer_cc_name=hiuh,customer_cc_lastname=hjhk,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-21 11:00:38,date=2019-06-21,time=11:00:38,insurance=1,barcode=<null>,served=1,sequantial=<null>]
+2019-06-21T11:00:39.047-0400 WARN 
+placement is sccessful
+2019-06-21T11:01:57.493-0400 INFO 
+
+
+
+
+
+
+
+
+***********************************************************************************
+Author: hunter 
+Date: 6/2019 
+Project: payment backend system based on payapl api for bikerent and bike tuors
+Checkout Type: pos_tours_orders
+Database: maysql
+***********************************************************************************
+2019-06-21T11:01:57.493-0400 INFO 
+
+-----------------------------------------------ErrorHanding-----------------------------------------------
+2019-06-21T11:01:57.498-0400 INFO in 
+{
+  "paypal": {
+    "number": "4554889957692955",
+	"type": "visa",
+	"expire_month": "01",
+	"expire_year": "2021",
+	"cvv2": "123",
+	"first_name": "Mar",
+	"last_name": "Singer",
+	"payment_method": "credit_card",
+    "total": "7.0",
+    "currency": "USD"
+  },
+ "pos_tours_orders": {
+    "total_price_before_tax": "7.0",
+    "total_price_after_tax": "7.00",
+    "customer_name": "customer_firstName",
+    "customer_lastname": "customer_lastName",
+    "customer_cc_name": "customer_cc__firstName",
+    "customer_cc_lastname": "customer_cc__lastName",
+    "customer_email": "customer@gmail.com",
+    
+    "tour_type": "public(2h)",
+    "tour_place": "Central Park",
+    "adult": 1,
+    "child": 2,
+    "walking": 3,
+    "pedicab": 4,
+    "total_people": 5,
+    "trailer":  6,
+    "kid_trailer": 7,
+    "basket": 8,
+    "seat": 9,
+    
+    "insurance": 1
+  }
+}
+
+
+2019-06-21T11:01:57.498-0400 INFO paypal: {"number":"4554889957692955","type":"visa","expire_month":"01","expire_year":"2021","cvv2":"123","first_name":"Mar","last_name":"Singer","payment_method":"credit_card","total":"7.0","currency":"USD"}
+2019-06-21T11:01:57.499-0400 INFO type: visa
+2019-06-21T11:01:57.499-0400 INFO expire_month: 01
+2019-06-21T11:01:57.499-0400 INFO expire_year: 2021
+2019-06-21T11:01:57.499-0400 INFO cvv2: 123
+2019-06-21T11:01:57.499-0400 INFO first_name: Mar
+2019-06-21T11:01:57.499-0400 INFO last_name: Singer
+2019-06-21T11:01:57.499-0400 INFO payment_method: credit_card
+2019-06-21T11:01:57.499-0400 INFO total: 7.0
+2019-06-21T11:01:57.499-0400 INFO currency: USD
+2019-06-21T11:01:57.499-0400 INFO payapl type is good 
+2019-06-21T11:01:57.499-0400 INFO payapl expire_month is good 
+2019-06-21T11:01:57.500-0400 INFO payapl expire_year is good 
+2019-06-21T11:01:57.500-0400 INFO payapl total is good 
+2019-06-21T11:01:57.500-0400 INFO pos_tours_orders: {"total_price_before_tax":"7.0","total_price_after_tax":"7.00","customer_name":"customer_firstName","customer_lastname":"customer_lastName","customer_cc_name":"customer_cc__firstName","customer_cc_lastname":"customer_cc__lastName","customer_email":"customer@gmail.com","tour_type":"public(2h)","tour_place":"Central Park","adult":1,"child":2,"walking":3,"pedicab":4,"total_people":5,"trailer":6,"kid_trailer":7,"basket":8,"seat":9,"insurance":1}
+2019-06-21T11:01:57.501-0400 INFO total_price_before_tax: 7.0
+2019-06-21T11:01:57.501-0400 INFO total_price_after_tax: 7.00
+2019-06-21T11:01:57.501-0400 INFO customer_name: customer_firstName
+2019-06-21T11:01:57.501-0400 INFO customer_lastname: customer_lastName
+2019-06-21T11:01:57.501-0400 INFO customer_cc_name: customer_cc__firstName
+2019-06-21T11:01:57.501-0400 INFO customer_cc_lastname: customer_cc__lastName
+2019-06-21T11:01:57.501-0400 INFO customer_email: customer@gmail.com
+2019-06-21T11:01:57.501-0400 INFO tour_type: public(2h)
+2019-06-21T11:01:57.502-0400 INFO tour_place: Central Park
+2019-06-21T11:01:57.502-0400 INFO adult: 1
+2019-06-21T11:01:57.502-0400 INFO child: 2
+2019-06-21T11:01:57.502-0400 INFO walking: 3
+2019-06-21T11:01:57.502-0400 INFO pedicab: 4
+2019-06-21T11:01:57.502-0400 INFO total_people: 5
+2019-06-21T11:01:57.502-0400 INFO trailer: 6
+2019-06-21T11:01:57.502-0400 INFO kid_trailer: 7
+2019-06-21T11:01:57.502-0400 INFO basket: 8
+2019-06-21T11:01:57.502-0400 INFO seat: 9
+2019-06-21T11:01:57.503-0400 INFO insurance: 1
+2019-06-21T11:01:57.503-0400 INFO 
+
+-----------------------------------------------payal_api-----------------------------------------------
+2019-06-21T11:01:57.881-0400 INFO DAO access_token: Bearer A21AAG6zMeFsjWU9ot3RrKSRa7-sKQ2ihG6m0qipec_RkwFOKa-XiBX6S_DmVKT5trBg1zTRRX5NnV-2WL4Z7-kvdRnOk4IyA
+2019-06-21T11:02:04.258-0400 INFO payapl resposonse {"id":"PAY-9PT2877198804011ELUGPCZQ","create_time":"2019-06-21T15:01:58Z","update_time":"2019-06-21T15:02:03Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card":{"type":"visa","number":"xxxxxxxxxxxx2955","expire_month":"1","expire_year":"2021","first_name":"Mar","last_name":"Singer"}}]},"transactions":[{"amount":{"total":"7.00","currency":"USD","details":{"subtotal":"7.00"}},"description":"This is the payment transaction description.","related_resources":[{"sale":{"id":"5XF010136Y9521643","create_time":"2019-06-21T15:01:58Z","update_time":"2019-06-21T15:02:03Z","amount":{"total":"7.00","currency":"USD"},"state":"completed","parent_payment":"PAY-9PT2877198804011ELUGPCZQ","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/5XF010136Y9521643","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/5XF010136Y9521643/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-9PT2877198804011ELUGPCZQ","rel":"parent_payment","method":"GET"}],"fmf_details":{},"processor_response":{"avs_code":"Y","cvv_code":"S"}}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-9PT2877198804011ELUGPCZQ","rel":"self","method":"GET"}]}
+2019-06-21T11:02:04.259-0400 INFO 
+
+-----------------------------------------------save to table  pos_tours_orders----------------------------------------------->
+2019-06-21T11:02:04.260-0400 INFO pos_tours_orders new rows: com.example.demo.model.Pos_tours_orders@5996bc43
+2019-06-21T11:02:04.261-0400 INFO com.example.demo.model.Pos_tours_orders@5996bc43[tour_type=public(2h),tour_place=Central Park,adult=1,child=2,walking=3,pedicab=4,total_people=5,trailer=6,kid_trailer=7,basket=8,seat=9,id=0,order_id=PAY-9PT2877198804011ELUGPCZQ,cashier_email=reservation@bikerent.nyc,total_price_before_tax=7.0,total_price_after_tax=7.0,customer_name=customer_firstName,customer_lastname=customer_lastName,customer_cc_name=customer_cc__firstName,customer_cc_lastname=customer_cc__lastName,customer_email=customer@gmail.com,order_completed=1,payment_type=paypal,reservation=1,created_at=2019-06-21 11:02:04,date=2019-06-21,time=11:02:04,insurance=1,barcode=<null>,served=1,sequantial=<null>]
+2019-06-21T11:02:04.471-0400 WARN 
+placement is sccessful
